@@ -28,7 +28,7 @@
 		<bean id="templateResolver" class="template.framework.views.CustomTemplateResolver">
 			<property name="prefix" value="views/" />
 			<property name="suffix" value=".html" />
-			<property name="templateMode" value="HTML5" />
+			<property name="templateMode" value="LEGACYHTML5" />
 		</bean>
 	    
 		<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
@@ -37,5 +37,16 @@
 	   
 		<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
 			<property name="templateEngine" ref="templateEngine" />
+		</bean>
+		
+		<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+			<property name="order" value="-10" />
+			<property name="mappings">
+				<props>
+					<prop key="/js/**">resourceHttpRequestHandler</prop>
+					<prop key="/css/**">resourceHttpRequestHandler</prop>
+					<prop key="/images/**">resourceHttpRequestHandler</prop>
+				</props>
+			</property>
 		</bean>
 </beans>
