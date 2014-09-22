@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import template.data.CensusService;
 import template.data.EducationService;
 import template.data.School;
 
@@ -28,5 +29,11 @@ public class MainController {
 	public String education(Model model) {
 		model.addAttribute("schools", EducationService.getSchools(35.64, -120.68, 15));
 		return "education";
+	}
+	
+	@RequestMapping("census")
+	public String census(Model model) {
+		model.addAttribute("places", CensusService.getPlaces("DE"));
+		return "census";
 	}
 }
