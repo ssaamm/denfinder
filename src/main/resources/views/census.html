@@ -1,0 +1,63 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>denfinder</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/global.css">
+    <!-- endbuild -->
+
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="promo">
+      <div class="promo-mask">
+        
+        <nav class="navbar navbar-default navbar-static-top navbar-home" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="#">
+                <img class="logo-svg" src="/images/icon_23241.svg">
+                <h3 class="logo-text">DenFinder</h3>
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <div class="housing-form-container container-fluid">
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+          <h2 class="text-center">
+			USA Today Census API test page
+          </h2>
+        </div>
+      </div>
+    </div>
+    
+    
+	<ul>
+		<li th:each="place : ${places}" th:text="${place}"></li>
+	</ul>
+
+    <div class="footer">
+      <div class="container-fluid">
+        Built with love from the Credera team  
+      </div>
+    </div>
+
+    <!-- build:js scripts/main.js -->
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/main.js"></script>
+    <!-- endbuild -->
+</body>
+</html>
