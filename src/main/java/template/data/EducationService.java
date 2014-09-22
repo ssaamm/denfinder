@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import template.util.ApiKeys;
 
 public class EducationService extends WebApiService {
+	private static final Logger logger = LogManager.getLogger(EducationService.class);
 	private static final String cApiKey = ApiKeys.cEducationKey,
 			cApiBaseUrl = "http://api.education.com/service/service.php";
 	
@@ -26,7 +29,7 @@ public class EducationService extends WebApiService {
 		params.put("distance", Double.toString(distance));
 		params.put("resf", "json");
 		try {
-			System.out.println(encodeUrl(cApiBaseUrl, params));
+			logger.debug(encodeUrl(cApiBaseUrl, params));
 			JSONArray allSchools = getResponseArr(encodeUrl(cApiBaseUrl, params));
 			for (int i = 0; i < allSchools.length(); ++i) {
 				JSONObject jsonSchool = allSchools.getJSONObject(i).getJSONObject("school");
