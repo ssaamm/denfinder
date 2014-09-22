@@ -6,8 +6,8 @@ public class School {
 	public String zip;
 	public String address;
 	public String city;
-	public int districtId;
-	public int districtLeaId;
+	public String districtId;
+	public String districtLeaId;
 	public boolean aypResult;
 	public int aypResultYear;
 	public double distance;
@@ -22,14 +22,30 @@ public class School {
 	public String state;
 	public int totalStudentTeacherRatio;
 	public String website;
-	public int ncesId;
+	public String ncesId;
 	public String url;
 	public String testRatingText;
 	public String testRatingImageLarge;
 	public String testRatingImageSmall;
-	public int testRatingYear;
+	public String testRatingYear;
 	
+	@Override
 	public String toString() {
-		return schoolId + " " + schoolName;
+		return "School [schoolId=" + schoolId + ", schoolName=" + schoolName
+				+ ", zip=" + zip + ", address=" + address + ", city=" + city
+				+ ", districtId=" + districtId + ", districtLeaId="
+				+ districtLeaId + ", aypResult=" + aypResult
+				+ ", aypResultYear=" + aypResultYear + ", distance=" + distance
+				+ ", totalEnrollment=" + totalEnrollment + ", gradeLevel="
+				+ gradeLevel + ", gradesServed=" + gradesServed + ", latitude="
+				+ latitude + ", longitude=" + longitude + ", phoneNumber="
+				+ phoneNumber + ", schoolDistrictName=" + schoolDistrictName
+				+ ", schoolType=" + schoolType + ", state=" + state
+				+ ", totalStudentTeacherRatio=" + totalStudentTeacherRatio
+				+ ", website=" + website + ", ncesId=" + ncesId + ", url="
+				+ url + ", testRatingText=" + testRatingText
+				+ ", testRatingImageLarge=" + testRatingImageLarge
+				+ ", testRatingImageSmall=" + testRatingImageSmall
+				+ ", testRatingYear=" + testRatingYear + "]";
 	}
 }
