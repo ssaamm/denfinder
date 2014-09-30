@@ -7,9 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import template.data.CensusService;
-import template.data.EducationService;
-import template.data.School;
+import template.data.census.CensusService;
+import template.data.education.EducationService;
+import template.data.education.School;
 
 @Controller
 public class MainController {

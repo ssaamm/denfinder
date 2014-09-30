@@ -1,4 +1,4 @@
-package template.data;
+package template.data.education;
 
 import org.json.JSONException;
 import org.json.JSONObject;

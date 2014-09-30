@@ -1,4 +1,4 @@
-package template.data;
+package template.data.census;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import template.data.WebApiService;
 import template.util.ApiKeys;
 
 public class CensusService extends WebApiService {

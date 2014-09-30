@@ -1,4 +1,4 @@
-package template.data;
+package template.data.census;
 
 public class Place {
 	public String name;

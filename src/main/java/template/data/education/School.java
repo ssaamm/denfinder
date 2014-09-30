@@ -1,4 +1,4 @@
-package template.data;
+package template.data.education;
 
 public class School {
 	public String schoolId;
