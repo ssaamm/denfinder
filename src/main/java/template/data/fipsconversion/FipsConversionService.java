@@ -14,7 +14,7 @@ public class FipsConversionService extends WebApiService {
 	private static final Logger logger = LogManager.getLogger(FipsConversionService.class);
 	private static final String cApiBaseUrl = "http://data.fcc.gov/api/block/find";
 
-	public static String getFipsCode(double latitude, double longitude) {
+	private static String getFipsCode(double latitude, double longitude, String level) {
 		String fipsCode = "";
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("latitude", Double.toString(latitude));
@@ -24,11 +24,23 @@ public class FipsConversionService extends WebApiService {
 		try {
 			logger.debug(encodeUrl(cApiBaseUrl, params));
 			JSONObject apiResponse = getResponseObj(encodeUrl(cApiBaseUrl, params));
-			fipsCode = apiResponse.getJSONObject("Block").getString("FIPS");
+			fipsCode = apiResponse.getJSONObject(level).getString("FIPS");
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return fipsCode;
+	}
+
+	public static String getBlockFipsCode(double latitude, double longitude) {
+		return getFipsCode(latitude, longitude, "Block");
+	}
+
+	public static String getStateFipsCode(double latitude, double longitude) {
+		return getFipsCode(latitude, longitude, "State");
+	}
+
+	public static String getCountyFipsCode(double latitude, double longitude) {
+		return getFipsCode(latitude, longitude, "County");
 	}
 }
