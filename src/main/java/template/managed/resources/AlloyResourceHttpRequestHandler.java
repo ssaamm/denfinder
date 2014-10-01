@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContext;
@@ -25,11 +24,11 @@ import template.main.CustomEmbeddedWebApplicationContext;
 
 import com.google.common.base.Throwables;
 
-
 @Service("resourceHttpRequestHandler")
 public class AlloyResourceHttpRequestHandler extends ResourceHttpRequestHandler {
-	private static final Logger logger = LogManager.getLogger(AlloyResourceHttpRequestHandler.class);
-	
+	private static final Logger logger = LogManager
+			.getLogger(AlloyResourceHttpRequestHandler.class);
+
 	@Autowired
 	private CustomEmbeddedWebApplicationContext applicationContext;
 
@@ -57,9 +56,9 @@ public class AlloyResourceHttpRequestHandler extends ResourceHttpRequestHandler 
 
 		if (mediaType != null) {
 			logger.debug("Determined media type '" + mediaType + "' for " + resource);
-		}
-		else {
-			logger.debug("No media type found for " + resource + " - not sending a content-type header");
+		} else {
+			logger.debug("No media type found for " + resource
+					+ " - not sending a content-type header");
 		}
 
 		// header phase
@@ -82,9 +81,11 @@ public class AlloyResourceHttpRequestHandler extends ResourceHttpRequestHandler 
 	}
 
 	/**
-	 * Checks to see if the requested path corresponds to a registered bundle. If so, returns the generated bundle.
-	 * Otherwise, checks to see if any of the configured GeneratedResourceHandlers can handle the given request.
-	 * If neither of those cases match, delegates to the normal ResourceHttpRequestHandler
+	 * Checks to see if the requested path corresponds to a registered bundle.
+	 * If so, returns the generated bundle. Otherwise, checks to see if any of
+	 * the configured GeneratedResourceHandlers can handle the given request. If
+	 * neither of those cases match, delegates to the normal
+	 * ResourceHttpRequestHandler
 	 */
 	@Override
 	protected Resource getResource(HttpServletRequest request) {
@@ -96,8 +97,7 @@ public class AlloyResourceHttpRequestHandler extends ResourceHttpRequestHandler 
 			}
 			return null;
 		}
-		
-		
+
 		Resource[] resources;
 		try {
 			System.out.println(path);
@@ -105,12 +105,12 @@ public class AlloyResourceHttpRequestHandler extends ResourceHttpRequestHandler 
 		} catch (IOException e) {
 			throw Throwables.propagate(e);
 		}
-		
+
 		Resource resource = resources[0];
 		if (resource.exists() && resource.isReadable()) {
 			return resource;
 		}
-		
+
 		return null;
 	}
 
@@ -129,7 +129,8 @@ public class AlloyResourceHttpRequestHandler extends ResourceHttpRequestHandler 
 			return null;
 		}
 
-		Object ctxFromSession = httpSession.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
+		Object ctxFromSession = httpSession
+				.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
 		if (ctxFromSession == null) {
 			return null;
 		}

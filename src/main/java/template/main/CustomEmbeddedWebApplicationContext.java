@@ -9,7 +9,7 @@ public class CustomEmbeddedWebApplicationContext extends XmlEmbeddedWebApplicati
 	public CustomEmbeddedWebApplicationContext(Resource resource) {
 		this.load(resource);
 	}
-	
+
 	@Override
 	protected ResourcePatternResolver getResourcePatternResolver() {
 		return new PathMatchingResourcePatternResolver(this.getClassLoader());

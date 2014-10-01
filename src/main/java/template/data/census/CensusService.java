@@ -24,7 +24,7 @@ public class CensusService extends WebApiService {
 		params.put("api_key", cApiKey);
 		params.put("keypat", state);
 		params.put("sumlevid", "4,6");
-		
+
 		try {
 			logger.debug(encodeUrl(cApiBaseUrl, params));
 			JSONObject apiResponse = getResponseObj(encodeUrl(cApiBaseUrl, params));
@@ -38,7 +38,7 @@ public class CensusService extends WebApiService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return places;
 	}
 

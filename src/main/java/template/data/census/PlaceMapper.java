@@ -17,7 +17,8 @@ public class PlaceMapper {
 		place.percentNonHispanicWhite = new Double(jsonPlace.getString("PctNonHispWhite"));
 		place.statePostal = jsonPlace.getString("StatePostal");
 		place.percentBlack = new Double(jsonPlace.getString("PctBlack"));
-		place.percentChange = new Double(jsonPlace.getString("PctChange").equals("") ? "0" : jsonPlace.getString("PctChange"));
+		place.percentChange = new Double(jsonPlace.getString("PctChange").equals("") ? "0"
+				: jsonPlace.getString("PctChange"));
 		place.percentHispanic = new Double(jsonPlace.getString("PctHisp"));
 		place.waterSquareMiles = new Double(jsonPlace.getString("WaterSqMi"));
 		place.percentVacant = new Double(jsonPlace.getString("PctVacant"));

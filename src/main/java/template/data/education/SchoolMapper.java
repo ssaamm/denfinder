@@ -26,7 +26,8 @@ public class SchoolMapper {
 			school.schoolDistrictName = jsonSchool.getString("schooldistrictname");
 			school.schoolType = jsonSchool.getString("schooltype");
 			school.state = jsonSchool.getString("state");
-			school.totalStudentTeacherRatio = jsonSchool.getJSONObject("studentteacherratio").getInt("total");
+			school.totalStudentTeacherRatio = jsonSchool.getJSONObject("studentteacherratio")
+					.getInt("total");
 			school.website = jsonSchool.getString("url");
 			school.ncesId = jsonSchool.getString("nces_id");
 			school.url = jsonSchool.getString("url");

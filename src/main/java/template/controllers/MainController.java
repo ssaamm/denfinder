@@ -1,6 +1,5 @@
 package template.controllers;
 
-
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
@@ -18,19 +17,19 @@ public class MainController {
 
 		return "index";
 	}
-	
+
 	@RequestMapping("/map")
 	public String map() {
 
 		return "map";
 	}
-	
+
 	@RequestMapping("education")
 	public String education(Model model) {
 		model.addAttribute("schools", EducationService.getSchools(35.64, -120.68, 15));
 		return "education";
 	}
-	
+
 	@RequestMapping("census")
 	public String census(Model model) {
 		model.addAttribute("places", CensusService.getPlaces("DE"));

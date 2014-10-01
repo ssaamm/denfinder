@@ -27,7 +27,7 @@ public class WebApiService {
 		try {
 			response = client.execute(request);
 			HttpEntity entity = response.getEntity();
-			
+
 			if (entity != null) {
 				InputStream in = entity.getContent();
 				result = new JSONObject(getStringFromStream(in));
@@ -38,9 +38,10 @@ public class WebApiService {
 		} catch (JSONException e) {
 			result = new JSONObject();
 		}
-			
+
 		return result;
 	}
+
 	public static JSONArray getResponseArr(URI url) {
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpGet request = new HttpGet(url);
@@ -50,7 +51,7 @@ public class WebApiService {
 		try {
 			response = client.execute(request);
 			HttpEntity entity = response.getEntity();
-			
+
 			if (entity != null) {
 				InputStream in = entity.getContent();
 				result = new JSONArray(getStringFromStream(in));
@@ -61,10 +62,10 @@ public class WebApiService {
 		} catch (JSONException e) {
 			result = new JSONArray();
 		}
-			
+
 		return result;
 	}
-	
+
 	public static URI encodeUrl(String base, Map<String, String> params) throws URISyntaxException {
 		String url = base + "?";
 		boolean first = true;
@@ -72,7 +73,8 @@ public class WebApiService {
 			for (Map.Entry<String, String> kvp : params.entrySet()) {
 				url += (first ? "" : "&") + URLEncoder.encode(kvp.getKey(), "UTF-8") + "="
 						+ URLEncoder.encode(kvp.getValue(), "UTF-8");
-				if (first) first = false;
+				if (first)
+					first = false;
 			}
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block

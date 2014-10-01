@@ -17,7 +17,7 @@ public class EducationService extends WebApiService {
 	private static final Logger logger = LogManager.getLogger(EducationService.class);
 	private static final String cApiKey = ApiKeys.cEducationKey,
 			cApiBaseUrl = "http://api.education.com/service/service.php";
-	
+
 	public static ArrayList<School> getSchools(double latitude, double longitude, double distance) {
 		ArrayList<School> schools = new ArrayList<School>();
 		Map<String, String> params = new HashMap<String, String>();

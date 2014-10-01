@@ -11,7 +11,8 @@ public class Place {
 	public double percentNonHispanicWhite;
 	public String statePostal;
 	public double percentBlack;
-	public double percentChange;//  Percentage change in population for an area from Census 2000 to Census 2010
+	public double percentChange;// Percentage change in population for an area
+								// from Census 2000 to Census 2010
 	public double percentHispanic;
 	public double waterSquareMiles;
 	public double percentVacant;
@@ -28,26 +29,21 @@ public class Place {
 	public double percentWhite;
 	public double percentPacificIslander;
 	public String stateApAbbrev;
-	
+
 	@Override
 	public String toString() {
-		return "Place [name=" + name + ", fullName=" + fullName
-				+ ", percentAsian=" + percentAsian + ", peoplePerSquareMile="
-				+ peoplePerSquareMile + ", diversityIndex=" + diversityIndex
-				+ ", totalSquareMiles=" + totalSquareMiles
-				+ ", percentAmericanIndian=" + percentAmericanIndian
-				+ ", percentNonHispanicWhite=" + percentNonHispanicWhite
-				+ ", statePosal=" + statePostal + ", percentBlack="
-				+ percentBlack + ", percentChange=" + percentChange
-				+ ", percentHispanic=" + percentHispanic
-				+ ", waterSquareMiles=" + waterSquareMiles + ", percentVacant="
-				+ percentVacant + ", fips=" + fips + ", percentOther="
-				+ percentOther + ", percentTwoOrMoreRaces="
-				+ percentTwoOrMoreRaces + ", housingUnits=" + housingUnits
-				+ ", gnis=" + gnis + ", population=" + population
-				+ ", landSquareMiles=" + landSquareMiles + ", longitude="
-				+ longitude + ", latitude=" + latitude
-				+ ", percentNonHispanic=" + percentNonHispanic
+		return "Place [name=" + name + ", fullName=" + fullName + ", percentAsian=" + percentAsian
+				+ ", peoplePerSquareMile=" + peoplePerSquareMile + ", diversityIndex="
+				+ diversityIndex + ", totalSquareMiles=" + totalSquareMiles
+				+ ", percentAmericanIndian=" + percentAmericanIndian + ", percentNonHispanicWhite="
+				+ percentNonHispanicWhite + ", statePosal=" + statePostal + ", percentBlack="
+				+ percentBlack + ", percentChange=" + percentChange + ", percentHispanic="
+				+ percentHispanic + ", waterSquareMiles=" + waterSquareMiles + ", percentVacant="
+				+ percentVacant + ", fips=" + fips + ", percentOther=" + percentOther
+				+ ", percentTwoOrMoreRaces=" + percentTwoOrMoreRaces + ", housingUnits="
+				+ housingUnits + ", gnis=" + gnis + ", population=" + population
+				+ ", landSquareMiles=" + landSquareMiles + ", longitude=" + longitude
+				+ ", latitude=" + latitude + ", percentNonHispanic=" + percentNonHispanic
 				+ ", percentWhite=" + percentWhite + "]";
 	}
 }

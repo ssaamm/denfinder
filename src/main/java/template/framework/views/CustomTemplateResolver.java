@@ -10,12 +10,11 @@ import org.thymeleaf.TemplateProcessingParameters;
 import org.thymeleaf.resourceresolver.IResourceResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
-
 public class CustomTemplateResolver extends TemplateResolver {
-	
+
 	@Autowired
 	private ApplicationContext applicationContext;
-	
+
 	public CustomTemplateResolver() {
 		super();
 	}
@@ -30,7 +29,8 @@ public class CustomTemplateResolver extends TemplateResolver {
 			return "CUSTOM";
 		}
 
-		public InputStream getResourceAsStream(TemplateProcessingParameters templateProcessingParameters, String resourceName) {
+		public InputStream getResourceAsStream(
+				TemplateProcessingParameters templateProcessingParameters, String resourceName) {
 			return applicationContext.getClassLoader().getResourceAsStream(resourceName);
 		}
 	}

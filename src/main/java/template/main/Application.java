@@ -6,17 +6,17 @@ public class Application {
 	private static final String APPLICATION_CONTEXT = "configuration/applicationContext.xml";
 
 	public Application(String[] args) {
-	
+
 	}
 
 	public void run() {
 		@SuppressWarnings("resource")
-		CustomEmbeddedWebApplicationContext context = 
-				new CustomEmbeddedWebApplicationContext(new ClassPathResource(APPLICATION_CONTEXT));
+		CustomEmbeddedWebApplicationContext context = new CustomEmbeddedWebApplicationContext(
+				new ClassPathResource(APPLICATION_CONTEXT));
 
 		context.refresh();
 		context.start();
-		
+
 		context.registerShutdownHook();
 	}
 
