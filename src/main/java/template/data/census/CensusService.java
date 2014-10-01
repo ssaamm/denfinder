@@ -16,13 +16,14 @@ import template.util.ApiKeys;
 public class CensusService extends WebApiService {
 	private static final Logger logger = LogManager.getLogger(CensusService.class);
 	private static final String cApiKey = ApiKeys.cCensusKey,
-			cApiBaseUrl = "http://api.usatoday.com/open/census/loc";
+			cApiBaseUrl = "http://api.usatoday.com/open/census/loc", cWildcard = "~";
 
-	public static ArrayList<Place> getPlaces(String state) {
+	public static ArrayList<Place> getPlaces(String fipsCode) {
 		ArrayList<Place> places = new ArrayList<Place>();
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("api_key", cApiKey);
-		params.put("keypat", state);
+		params.put("keypat", fipsCode + cWildcard);
+		params.put("keyname", "fips");
 		params.put("sumlevid", "4,6");
 
 		try {
