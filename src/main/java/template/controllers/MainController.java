@@ -35,4 +35,11 @@ public class MainController {
 		model.addAttribute("places", CensusService.getPlaces("DE"));
 		return "census";
 	}
+	
+	@RequestMapping("testPost")
+	public String testPost(Model model){
+		
+		
+		return "testPost";
+	}
 }
