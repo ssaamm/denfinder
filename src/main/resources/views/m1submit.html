@@ -42,16 +42,21 @@
     <div class="housing-form-container container-fluid">
       <div class="row">
         <div class="col-md-4 col-md-offset-4">
-          <h2 class="text-center">
-            M1 Submit
+          <h1 class="text-center">
+            Data Dump
           </h2>
         </div>
       </div>
     </div>
     
+	<h2>Education Data</h2>
     <p th:text="${message}"></p>
 	<ul>
 		<li th:each="school : ${schools}" th:text="${school}"></li>
+	</ul>
+	<h2>Census Data</h2>
+	<ul>
+		<li th:each="place : ${places}" th:text="${place}"></li>
 	</ul>
 
     <div class="footer">

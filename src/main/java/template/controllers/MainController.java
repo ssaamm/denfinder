@@ -49,6 +49,9 @@ public class MainController {
 		model.addAttribute("message", latLonForm.getLatitude() + " " + latLonForm.getLongitude());
 		model.addAttribute("schools", EducationService.getSchools(latLonForm.getLatitude(),
 				latLonForm.getLongitude(), 10));
+		String fipsCode = FipsConversionService.getCountyFipsCode(latLonForm.getLatitude(),
+				latLonForm.getLongitude());
+		model.addAttribute("places", CensusService.getPlaces(fipsCode));
 		return "m1submit";
 	}
 }
