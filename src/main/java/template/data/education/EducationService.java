@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import template.data.WebApiService;
+import template.m1.LatLon;
 import template.util.ApiKeys;
 
 public class EducationService extends WebApiService {
@@ -41,5 +42,9 @@ public class EducationService extends WebApiService {
 			e.printStackTrace();
 		}
 		return schools;
+	}
+
+	public static ArrayList<School> getSchools(LatLon latLon, double distance) {
+		return getSchools(latLon.getLatitude(), latLon.getLongitude(), distance);
 	}
 }
