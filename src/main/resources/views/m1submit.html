@@ -49,21 +49,19 @@
       </div>
     </div>
     
-	<h2>Education Data</h2>
-    <p th:text="${message}"></p>
-	<ul>
-		<li th:each="school : ${schools}" th:text="${school}"></li>
-	</ul>
-	<h2>Census Data</h2>
-	<ul>
-		<li th:each="place : ${places}" th:text="${place}"></li>
-	</ul>
-
-    <div class="footer">
-      <div class="container-fluid">
-        Built with love from the Credera team  
-      </div>
-    </div>
+    <ul>
+    	<li th:each="latLon : ${latLons}">
+    		<h2 th:text="${latLon.latLon}">Lat, Lon</h2>
+    		<h3>Census</h3>
+    		<ul>
+    			<li th:each="place : ${latLon.places}" th:text="${place}"></li>
+    		</ul>
+    		<h3>Education</h3>
+    		<ul>
+    			<li th:each="school : ${latLon.schools}" th:text="${school}"></li>
+    		</ul>
+    	</li>
+    </ul>
 
     <!-- build:js scripts/main.js -->
     <script src="/js/jquery.js"></script>

@@ -52,17 +52,21 @@ public class MainController {
 
 	@RequestMapping(value = "/m1", method = RequestMethod.POST)
 	public String m1submit(@ModelAttribute LatLon latLon, Model model) {
-		model.addAttribute("message", latLon.getLatitude() + " " + latLon.getLongitude());
-		model.addAttribute("schools", EducationService.getSchools(latLon.getLatitude(),
-				latLon.getLongitude(), 10));
+		List<LatLonData> latLons = new ArrayList<LatLonData>();
+		if (latLon == null) {
+			latLon = new LatLon();
+		}
 		String fipsCode = FipsConversionService.getCountyFipsCode(latLon.getLatitude(),
 				latLon.getLongitude());
-		model.addAttribute("places", CensusService.getPlaces(fipsCode));
+		LatLonData toAdd = new LatLonData(latLon, CensusService.getPlaces(fipsCode),
+				EducationService.getSchools(latLon, 5));
+		latLons.add(toAdd);
+		model.addAttribute("latLons", latLons);
 		return "m1submit";
 	}
 
 	@RequestMapping(value = "/m1bulk", method = RequestMethod.POST)
-	public String m1bulk(@ModelAttribute LatLonBulk latLonBulk, Model model) {
+	public String m1submitbulk(@ModelAttribute LatLonBulk latLonBulk, Model model) {
 		model.addAttribute("message", latLonBulk.getInput());
 		String[] lines = latLonBulk.getInput().split("\n");
 		List<LatLonData> latLons = new ArrayList<LatLonData>();
@@ -73,8 +77,9 @@ public class MainController {
 			if (!line.contains(" ")) {
 				continue;
 			}
-			Double lat = new Double(line.split("\\w\\s")[0]);
-			Double lon = new Double(line.split("\\w\\s")[1]);
+			String[] split = line.trim().split("\\s+");
+			Double lat = new Double(split[0]);
+			Double lon = new Double(split[1]);
 			LatLon latLon = new LatLon(lat, lon);
 			String fipsCode = FipsConversionService.getCountyFipsCode(latLon.getLatitude(),
 					latLon.getLongitude());
@@ -83,6 +88,6 @@ public class MainController {
 			latLons.add(toAdd);
 		}
 		model.addAttribute("latLons", latLons);
-		return "m1submitbulk";
+		return "m1submit";
 	}
 }
