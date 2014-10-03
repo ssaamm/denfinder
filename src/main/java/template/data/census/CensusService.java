@@ -32,7 +32,6 @@ public class CensusService extends WebApiService {
 			JSONArray allPlaces = apiResponse.getJSONArray("response");
 			for (int i = 0; i < allPlaces.length(); ++i) {
 				JSONObject jsonPlace = allPlaces.getJSONObject(i);
-				logger.debug(jsonPlace.toString(4));
 				places.add(PlaceMapper.map(jsonPlace));
 			}
 		} catch (URISyntaxException e) {
