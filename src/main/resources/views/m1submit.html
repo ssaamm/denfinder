@@ -9,6 +9,9 @@
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/js/jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" href="/js/jquery-ui/jquery-ui.structure.css">
+    <link rel="stylesheet" href="/js/jquery-ui/jquery-ui.theme.css">
     <!-- endbuild -->
 
   </head>
@@ -49,9 +52,10 @@
       </div>
     </div>
     
-    <ul>
-    	<li th:each="latLon : ${latLons}">
+    <div id="data">
+    	<div th:each="latLon : ${latLons}">
     		<h2 th:text="${latLon.latLon}">Lat, Lon</h2>
+    		<div>
     		<h3>Census</h3>
     		<ul>
     			<li th:each="place : ${latLon.places}" th:text="${place}"></li>
@@ -60,13 +64,23 @@
     		<ul>
     			<li th:each="school : ${latLon.schools}" th:text="${school}"></li>
     		</ul>
-    	</li>
-    </ul>
-
+    		</div>
+    	</div>
+    </div>
+	
     <!-- build:js scripts/main.js -->
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script src="/js/main.js"></script>
+    <script src="/js/jquery-ui/jquery-ui.js"></script>
     <!-- endbuild -->
+    <script>
+    $("#data").accordion({
+			header: "div h2",
+			collapsible: true,
+			active: false,
+			heightStyle: "content"
+	});
+    </script>
 </body>
 </html>
