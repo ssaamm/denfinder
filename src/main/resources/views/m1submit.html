@@ -10,12 +10,7 @@
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/global.css">
     <!-- endbuild -->
-    <style type="text/css">
-		textarea {
-			display: block;
-			width: 300px;
-		}
-	</style>
+
   </head>
   <body>
     <!--[if lt IE 10]>
@@ -41,15 +36,6 @@
             </div>
           </div>
         </nav>
-
-        <div class="promo-content">
-          <div class="promo-headline">
-            There's No Place Like Home
-          </div>
-          <div class="promo-subhead">
-            Find homes in neighborhoods you'll love
-          </div>
-        </div>
       </div>
     </div>
 
@@ -57,42 +43,16 @@
       <div class="row">
         <div class="col-md-4 col-md-offset-4">
           <h2 class="text-center">
-            Input Latitude and Longitude
+            M1 Submit
           </h2>
-          <form action="#" th:action="@{/m1}" method="post" th:object="${latLonForm}">
-            <div class="form-group">
-              <label for="">
-                Latitude
-              </label>
-              <input type="text" class="form-control" placeholder="26.6645" th:field="*{latitude}" />
-            </div>
-            <div class="form-group">
-              <label for="">
-                Longitude
-              </label>
-              <input type="text" class="form-control" placeholder="26.6645" th:field="*{longitude}" />
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Get Data for Single Location</button>
-          </form>
-        </div>
-        <div class="col-md-4 col-md-offset-4">
-          <h2 class="text-center">
-            Input Bulk Latitude and Longitude
-          </h2>
-          <form id="bulk-input" action="/education" method="post">
-            <div class="form-group">
-              <label for="">
-                Latitude and Longitude space separated pairs
-              </label>
-              <textarea class="bulk-input" name="test" form="bulk-input" placeholder="26.6645 26.6645
-              74.53434 34.2364"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Get Data for Bulk Location</button>
-          </form>
         </div>
       </div>
     </div>
-
+    
+    <p th:text="${message}"></p>
+	<ul>
+		<li th:each="school : ${schools}" th:text="${school}"></li>
+	</ul>
 
     <div class="footer">
       <div class="container-fluid">
