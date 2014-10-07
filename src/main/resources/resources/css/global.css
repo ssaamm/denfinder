@@ -96,3 +96,11 @@ body {
   font-weight: 200;
   letter-spacing: .05em;
 }
+
+.keep-together {
+  white-space: nowrap;
+}
+
+textarea.bulk-input {
+	resize: none;
+}
