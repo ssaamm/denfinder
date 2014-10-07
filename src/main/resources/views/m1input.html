@@ -77,15 +77,14 @@
         </div>
         <div class="col-md-4 col-md-offset-4">
           <h2 class="text-center">
-            Input Bulk Latitude and Longitude
+            Input Bulk <span class="keep-together">Latitude and Longitude</span>
           </h2>
           <form id="bulk-input" action="#" th:action="@{/m1bulk}" method="post" th:object="${latLonBulk}">
             <div class="form-group">
               <label for="">
                 Latitude and Longitude space separated pairs
               </label>
-              <textarea th:field="*{input}" class="bulk-input" name="test" form="bulk-input">26.6645 26.6645
-              74.53434 34.2364</textarea>
+              <textarea th:field="*{input}" class="form-control bulk-input" name="test" form="bulk-input" placeholder="26.6645 26.6645 (etc)"></textarea>
             </div>
             <button type="submit" class="btn btn-primary btn-lg btn-block">Get Data for Bulk Location</button>
           </form>
