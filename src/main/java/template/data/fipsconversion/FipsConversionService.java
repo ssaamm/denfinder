@@ -46,4 +46,15 @@ public class FipsConversionService extends WebApiService {
 	public static String getCountyFipsCode(double latitude, double longitude) {
 		return getFipsCode(latitude, longitude, "County");
 	}
+
+	public static FipsCode getFipsCode(double latitude, double longitude) {
+		FipsCode result = new FipsCode();
+		String fipsCode = getBlockFipsCode(latitude, longitude);
+		result.state = fipsCode.substring(0, 2);
+		result.county = fipsCode.substring(2, 5);
+		result.tract = fipsCode.substring(5, 11);
+		result.blockGroup = fipsCode.substring(11, 12);
+		result.block = fipsCode.substring(11, 15); // this might be wrong, but I'm not using block
+		return result;
+	}
 }
