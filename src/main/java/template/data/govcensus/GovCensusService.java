@@ -80,4 +80,14 @@ public class GovCensusService extends WebApiService {
 		return getDouble(state, county, tract, blockGroup, "B01002_001E");
 	}
 
+	public static Integer getMarriedCoupleFamilyHouseholds(String state, String county,
+			String tract, String blockGroup) {
+		return getInteger(state, county, tract, blockGroup, "B11001_003E");
+	}
+
+	public static Integer getTotalHouseholds(String state, String county, String tract,
+			String blockGroup) {
+		return getInteger(state, county, tract, blockGroup, "B11001_001E");
+	}
+
 }
