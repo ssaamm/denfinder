@@ -1,4 +1,19 @@
 language: java
 script: mvn package -Popenshift
 jdk:
-  - oraclejdk8
+- oraclejdk8
+deploy:
+  provider: openshift
+  user: openshift@samueltaylor.org
+  password:
+    secure: LIP9AR5hKFJ0+/txCriIye4Mh3pKwaoeLHU0vIYj0Yl7/taZzR+U6CB+2vE88Vrx6wY+pDEUaEnkgqb9NgF9535HVKt2bvrC1B4KrJuPNbi1IOEvBVjoQKp+dvDqPww/JXOlfbX+Et+ucv+Kv7aZVX+uXWB4l3rgVdVc6B6mrG8=
+  app: denfinder
+  domain: denfinder
+  on:
+    repo: ssaamm/denfinder
+env:
+  global:
+  - secure: Pnuil4rT2qdF43SNnP+XcQonzoCu1OYFj8jiduxcm1x61K/gLfNGqPuPQoR50QAmZidZPxudFaxLOxCb5AO1Z5e5YqFFL0L/XGu8RvEUW19UAEMIOtOGd6Fu8U9Y6ewnGxntGWHaXfci9XTbCwK9yiZfEHht6I9wNH9On7KHwjk=
+  - secure: RvmVfovJWFHlJkXoF70chf4D4FlnCJrPlhk2zrv+7AEAzV8vLZn+Adf5wK8k2pkOk7CMNkX79H84RnMBIBlFSs753Jiyy1No1DVKQC1pv2rDnnNywAteBxyBjhEFpTple8qDLM28wlAXuBJd5ic9Tv3SVqrfIvo0PKIHFeRVzOg=
+  - secure: esHSBX1X8xc97dXH5Pn/9HqZ1ZCmMB0iijoOIXKZCbv/ZuPqmKRhC8bcZKGQbbrDkjjRvhQLm4+xisoxcX1zVrhGcI1DuoxiiofqaEG+Yre4gOSVWzOnowRkbYSUxguHSgMS+6/jDAnoIIAcTQ/kFnvpsCsS38QZUpBblRFzWb4=
+  - secure: PcrHj3SoEONUC1qdQPA5/QGZ5GRxjrLUlnd6B8DCIXoruqZ9Z5JinH4qdIRSznO+2lS6318X+0m1kp03liCVvnYXMe6/dVEXLO8oMKi6RTrhOYBY1WN1hQfDLLh0knO54zKV5NZzPlgmi4j/MH2T+35dC3qkBhZwFyCFM8TTkuo=
