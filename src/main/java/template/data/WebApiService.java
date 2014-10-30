@@ -66,13 +66,17 @@ public class WebApiService {
 		return result;
 	}
 
-	public static URI encodeUrl(String base, Map<String, String> params) throws URISyntaxException {
+	public static URI encodeUrl(String base, Map<String, String> params, boolean encodeParams)
+			throws URISyntaxException {
 		String url = base + "?";
 		boolean first = true;
 		try {
 			for (Map.Entry<String, String> kvp : params.entrySet()) {
-				url += (first ? "" : "&") + URLEncoder.encode(kvp.getKey(), "UTF-8") + "="
-						+ URLEncoder.encode(kvp.getValue(), "UTF-8");
+				url += (first ? "" : "&")
+						+ (encodeParams ? URLEncoder.encode(kvp.getKey(), "UTF-8") : kvp.getKey())
+						+ "="
+						+ (encodeParams ? URLEncoder.encode(kvp.getValue(), "UTF-8") : kvp
+								.getValue());
 				if (first)
 					first = false;
 			}
@@ -81,6 +85,10 @@ public class WebApiService {
 			e.printStackTrace();
 		}
 		return new URI(url);
+	}
+
+	public static URI encodeUrl(String base, Map<String, String> params) throws URISyntaxException {
+		return encodeUrl(base, params, true);
 	}
 
 	// TODO: This probably shouldn't be here
