@@ -19,7 +19,8 @@ public class EducationService extends WebApiService {
 	private static final String cApiKey = ApiKeys.cEducationKey,
 			cApiBaseUrl = "http://api.education.com/service/service.php";
 
-	public static ArrayList<School> getSchools(double latitude, double longitude, double distance) {
+	public static ArrayList<School> getSchools(double latitude, double longitude, double distance,
+			Integer minResult) {
 		ArrayList<School> schools = new ArrayList<School>();
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("f", "schoolSearch");
@@ -29,6 +30,9 @@ public class EducationService extends WebApiService {
 		params.put("latitude", Double.toString(latitude));
 		params.put("longitude", Double.toString(longitude));
 		params.put("distance", Double.toString(distance));
+		if (minResult != null) {
+			params.put("minResult", Integer.toString(minResult));
+		}
 		params.put("resf", "json");
 		try {
 			logger.debug(encodeUrl(cApiBaseUrl, params));
@@ -42,6 +46,10 @@ public class EducationService extends WebApiService {
 			e.printStackTrace();
 		}
 		return schools;
+	}
+
+	public static ArrayList<School> getSchools(double latitude, double longitude, double distance) {
+		return getSchools(latitude, longitude, distance, null);
 	}
 
 	public static ArrayList<School> getSchools(LatLon latLon, double distance) {
