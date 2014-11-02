@@ -13,6 +13,7 @@ public class LocationDataWrapper {
 	private Double medianAge = null;
 	private Integer marriedCoupleFamilyHouseholds = null;
 	private Integer totalHouseholds = null;
+	private Double score = null;
 
 	public LocationDataWrapper(double lat, double lon) {
 		this.location = new LatLon(lat, lon);
@@ -23,7 +24,7 @@ public class LocationDataWrapper {
 		return "LocationDataWrapper [location=" + location + ", transitScore=" + transitScore
 				+ ", schools=" + schools + ", medianIncome=" + medianIncome + ", medianAge="
 				+ medianAge + ", marriedCoupleFamilyHouseholds=" + marriedCoupleFamilyHouseholds
-				+ ", totalHouseholds=" + totalHouseholds + "]";
+				+ ", totalHouseholds=" + totalHouseholds + ", score=" + score + "]";
 	}
 
 	public LatLon getLocation() {
@@ -80,5 +81,13 @@ public class LocationDataWrapper {
 
 	public void setTotalHouseholds(Integer totalHouseholds) {
 		this.totalHouseholds = totalHouseholds;
+	}
+
+	public Double getScore() {
+		return score;
+	}
+
+	public void setScore(Double score) {
+		this.score = score;
 	}
 }
