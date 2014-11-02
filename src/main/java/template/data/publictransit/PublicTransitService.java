@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import template.data.WebApiService;
@@ -31,6 +32,8 @@ public class PublicTransitService extends WebApiService {
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (JSONException e) {
+			score = -1;
 		}
 
 		return score;
