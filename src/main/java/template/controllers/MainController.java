@@ -1,7 +1,10 @@
 package template.controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,6 +66,41 @@ public class MainController {
 		return "census";
 	}
 	
+	@RequestMapping(value = "/m2", method = RequestMethod.GET)
+	public String m2input(Model model) {
+		model.addAttribute("latLonForm", new LatLon());
+		return "m2input";
+	}
+
+	@RequestMapping(value = "/m2", method = RequestMethod.POST)
+	public String m2submit(@ModelAttribute LatLon latLon, Model model) {
+		List<LocationDataWrapper> locationDataWrappers = new ArrayList<LocationDataWrapper>();
+		if (latLon == null) {
+			latLon = new LatLon();
+		}
+		
+		Random r = new Random();
+		for (int i = -2; i < 3; ++i) {
+			for (int j = -2 ; j < 3; ++j) {
+				LocationDataWrapper toAdd = new LocationDataWrapper(latLon.getLatitude() + i * 0.01,
+						latLon.getLongitude() + j * 0.01);
+				LocationDataPopulator.populate(toAdd);
+				toAdd.setScore(r.nextDouble());
+				locationDataWrappers.add(toAdd);
+			}
+		}
+
+		Collections.sort(locationDataWrappers, new Comparator<LocationDataWrapper>() {
+			@Override
+			public int compare(LocationDataWrapper ldw1, LocationDataWrapper ldw2) {
+				return (int) ((ldw2.getScore() - ldw1.getScore()) * 1000);
+			}
+		});
+
+		model.addAttribute("locationDataWrappers", locationDataWrappers);
+		return "m2submit";
+	}
+
 	@RequestMapping(value = "/m1", method = RequestMethod.GET)
 	public String m1input(Model model) {
 		model.addAttribute("latLonForm", new LatLon());
