@@ -44,6 +44,34 @@ public class GovCensusService extends WebApiService {
 		return result.get(0);
 	}
 
+	public static GovData getCensusData(String state, String county, String tract, String blockGroup) {
+		ArrayList<GovData> result = new ArrayList<GovData>();
+		String[] attributesToGet = { "B19013_001E", "B01002_001E", "B11001_003E", "B11001_001E" };
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("key", cApiKey);
+		params.put("for", "block+group:" + blockGroup);
+		params.put("in", String.format("state:%s+county:%s+tract:%s", state, county, tract));
+		params.put("get", String.join(",", attributesToGet));
+
+		try {
+			logger.debug(encodeUrl(cAcsBaseUrl, params, false));
+			JSONArray apiResponse = getResponseArr(encodeUrl(cAcsBaseUrl, params, false));
+			for (int i = 1; i < apiResponse.length(); ++i) {
+				JSONArray arr = apiResponse.getJSONArray(i);
+				result.add(new GovData(arr.getInt(0), arr.getDouble(1), arr.getInt(2), arr
+						.getInt(3)));
+			}
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if (result.size() < 1) {
+			return null;
+		}
+		return result.get(0);
+	}
+
 	// TODO: This shouldn't be an entirely separate method
 	private static Double getDouble(String state, String county, String tract, String blockGroup,
 			String key) {
