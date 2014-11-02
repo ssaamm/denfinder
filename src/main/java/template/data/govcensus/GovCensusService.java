@@ -22,7 +22,7 @@ public class GovCensusService extends WebApiService {
 			String key) {
 		ArrayList<Integer> result = new ArrayList<Integer>();
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("key", "c85059729d73eac8352618e9665149ae7ecf2603");
+		params.put("key", cApiKey);
 		params.put("for", "block+group:" + blockGroup);
 		params.put("in", String.format("state:%s+county:%s+tract:%s", state, county, tract));
 		params.put("get", key);
@@ -49,7 +49,7 @@ public class GovCensusService extends WebApiService {
 			String key) {
 		ArrayList<Double> result = new ArrayList<Double>();
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("key", "c85059729d73eac8352618e9665149ae7ecf2603");
+		params.put("key", cApiKey);
 		params.put("for", "block+group:" + blockGroup);
 		params.put("in", String.format("state:%s+county:%s+tract:%s", state, county, tract));
 		params.put("get", key);
