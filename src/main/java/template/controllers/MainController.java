@@ -15,6 +15,8 @@ import template.data.fipsconversion.FipsConversionService;
 import template.m1.LatLon;
 import template.m1.LatLonBulk;
 import template.m1.LatLonData;
+import template.scoring.LocationDataPopulator;
+import template.scoring.LocationDataWrapper;
 
 @Controller
 public class MainController {
@@ -28,6 +30,24 @@ public class MainController {
 	public String map() {
 
 		return "map";
+	}
+
+	@RequestMapping("/test")
+	public String test(Model model) {
+		List<LocationDataWrapper> locationDataWrappers = new ArrayList<LocationDataWrapper>();
+		LocationDataWrapper baylor = new LocationDataWrapper(31.5472, -97.1139);
+		LocationDataWrapper cbu = new LocationDataWrapper(33.9300, -117.4250);
+		LocationDataWrapper biola = new LocationDataWrapper(33.9056, -118.0181);
+		locationDataWrappers.add(baylor);
+		locationDataWrappers.add(cbu);
+		locationDataWrappers.add(biola);
+
+		for (LocationDataWrapper ldw : locationDataWrappers) {
+			LocationDataPopulator.populate(ldw);
+		}
+
+		model.addAttribute("things", locationDataWrappers);
+		return "test";
 	}
 
 	@RequestMapping("education")
