@@ -32,7 +32,7 @@ public class MainController {
 
 	@RequestMapping("education")
 	public String education(Model model) {
-		model.addAttribute("schools", EducationService.getSchools(31.5472, -97.1139, 15));
+		model.addAttribute("schools", EducationService.getSchools(31.5472, -97.1139, 0, 2));
 		return "education";
 	}
 
