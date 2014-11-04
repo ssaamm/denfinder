@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import template.data.census.CensusService;
-import template.data.geocode.*;
 import template.data.education.EducationService;
 import template.data.fipsconversion.FipsConversionService;
 import template.m1.LatLon;
@@ -78,14 +77,16 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/m2", method = RequestMethod.POST)
-	public String m2submit(@ModelAttribute LocationDataWrapper idealLoc,
-			Model model) {
+	public String m2submit(Model model) {
 		List<LocationDataWrapper> locationDataWrappers = new ArrayList<LocationDataWrapper>();
+
+		LocationDataWrapper idealLoc = null;
 		if (idealLoc == null) {
 			idealLoc = new LocationDataWrapper();
 		}
-		idealLoc.setLocation();
+		idealLoc.setLocation(new LatLon(31.5472, -97.1139));
 		LatLon latLon = idealLoc.getLocation();
+		LocationDataPopulator.populate(idealLoc);
 
 		for (int i = -1 * WIDTH_OF_TARGET_BOX; i <= WIDTH_OF_TARGET_BOX; ++i) {
 			for (int j = -1 * WIDTH_OF_TARGET_BOX; j <= WIDTH_OF_TARGET_BOX; ++j) {
