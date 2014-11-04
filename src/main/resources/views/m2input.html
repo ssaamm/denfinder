@@ -51,42 +51,28 @@
           <h2 class="text-center">
             Input Latitude and Longitude
           </h2>
-          <form action="#" th:action="@{/m2}" method="post"">
-            <div class="form-group">
-              <label for="">
-                Latitude
-              </label>
-              <input type="text" class="form-control" placeholder="26.6645" th:field="*{latitude}" />
-            </div>
-            <div class="form-group">
-              <label for="">
-                Longitude
-              </label>
-              <input type="text" class="form-control" placeholder="26.6645" th:field="*{longitude}" />
-            </div>
-            
-            
+          <form action="#" th:action="@{/m2}" method="post"" th:object="${ideal}">
             <div class="form-group">
               <label for="">
                 Preferred Location
               </label>
-              <input type="text" class="form-control" placeholder="City, state or zip code" th:value="${address}" name="address" />
+              <input type="text" class="form-control" placeholder="City, state or zip code" th:field="*{address}" name="" />
             </div>
             <div class="form-group">
               <label for="">
                 Income Range
               </label>
-              <select name="" id="" class="form-control">
-                <option value="0-25">Below $25K</option>
-                <option value="25-50">Above $25K</option>
-                <option value="50-75">Above $50K</option>
-                <option value="75-100">Above $75K</option>
-                <option value="100+">Above $100K</option>
+              <select th:field="*{medianIncome}" name="" id="" class="form-control">
+                <option value="15000">Below $25K</option>
+                <option value="37500">Above $25K</option>
+                <option value="62500">Above $50K</option>
+                <option value="87500">Above $75K</option>
+                <option value="150000">Above $100K</option>
               </select>
             </div>
             <div class="form-group">
               <label for="">Relationship Status</label>
-              <select name="" id="" class="form-control">
+              <select th:field="*{marriedCoupleFamilyHouseholds}" name="" id="" class="form-control">
                 <option value="Single">Single</option>
                 <option value="Married">Married</option>
                 <option value="It's Complicated">It's Complicated</option>
@@ -94,7 +80,7 @@
             </div>
             <div class="form-group">
               <label for="">Age</label>
-              <select name="" id="" class="form-control">
+              <select th:field="*{medianAge}" name="" id="" class="form-control">
                 <option value="">Teens</option>
                 <option value="">20's</option>
                 <option value="">30's</option>
@@ -113,10 +99,10 @@
             </div>
             <div class="form-group">
               <label for="">Importance School System Quality</label>
-              <select name="" id="" class="form-control">
-                <option value="">Very Important</option>
-                <option value="">Somewhat Important</option>
-                <option value="">Not Very Important</option>
+              <select th:field="*{schoolWeight}" name="" id="" class="form-control">
+                <option value="2">Very Important</option>
+                <option value="1">Somewhat Important</option>
+                <option value="0">Not Very Important</option>
               </select>
             </div>
             <button type="submit" class="btn btn-primary btn-lg btn-block">Find Housing</button>

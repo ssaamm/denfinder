@@ -71,27 +71,27 @@ public class MainController {
 	
 	@RequestMapping(value = "/m2", method = RequestMethod.GET)
 	public String m2input(Model model) {
-		model.addAttribute("latLonForm", new LatLon());
+		model.addAttribute("ideal", new LocationDataWrapper());
 		return "m2input";
 	}
 
 	@RequestMapping(value = "/m2", method = RequestMethod.POST)
-	public String m2submit(@ModelAttribute LatLon latLon,@ModelAttribute LocationDataWrapper ideal, Model model) {
+	public String m2submit(@ModelAttribute LocationDataWrapper idealLoc, Model model) {
 		List<LocationDataWrapper> locationDataWrappers = new ArrayList<LocationDataWrapper>();
-		if (latLon == null) {
-			latLon = new LatLon();
+		
+		
+		if(idealLoc == null){
+			idealLoc = new LocationDataWrapper();
 		}
-		//TODO INITIALIZE ideal
-		if(ideal == null){
-			ideal = new LocationDataWrapper();
-		}
+		idealLoc.setLocation();
+		LatLon latLon = idealLoc.getLocation();
 		
 		for (int i = -1*WIDTH_OF_TARGET_BOX; i <= WIDTH_OF_TARGET_BOX; ++i) {
 			for (int j = -1* WIDTH_OF_TARGET_BOX ; j <= WIDTH_OF_TARGET_BOX; ++j) {
 				LocationDataWrapper toAdd = new LocationDataWrapper(latLon.getLatitude() + i * 0.01,
 						latLon.getLongitude() + j * 0.01);
 				LocationDataPopulator.populate(toAdd);
-				toAdd.setScore(toAdd.compareToIdeal(ideal));
+				toAdd.setScore(toAdd.compareToIdeal(idealLoc));
 				locationDataWrappers.add(toAdd);
 			}
 		}

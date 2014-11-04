@@ -48,7 +48,7 @@
         </div>
       </div>
     </div>
-    
+    <p th:text="${ideal}">[ideal as string]<br /></p>
     <div id="data">
     	<div th:each="ldw : ${locationDataWrappers}">
     		<h2 th:text="${ldw.location + ': ' + ldw.score}">Lat, Lon</h2>

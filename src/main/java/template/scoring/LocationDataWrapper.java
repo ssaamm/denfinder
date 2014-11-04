@@ -20,8 +20,24 @@ public class LocationDataWrapper {
 	private Integer marriedCoupleFamilyHouseholds = null;
 	private Double householdWeight =1.0;
 	private Integer totalHouseholds = null;
-	
+	private String address = null;
 	private Double score = null;
+
+	public Double getSchoolWeight() {
+		return schoolWeight;
+	}
+
+	public void setSchoolWeight(Double schoolWeight) {
+		this.schoolWeight = schoolWeight;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
 	public LocationDataWrapper(double lat, double lon) {
 		this.location = new LatLon(lat, lon);
@@ -37,7 +53,11 @@ public class LocationDataWrapper {
 	}
 
 	//address is address, zipcode, or city name
-	public void setLocation(String address){
+	public void setLocation(String addr){
+		this.address = addr;
+		setLocation();
+	}
+	public void setLocation(){
 		//TODO call google, string to lat lon
 		this.location = GeocodeService.getLatLon(address);
 	}
