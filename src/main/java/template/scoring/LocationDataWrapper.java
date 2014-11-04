@@ -4,20 +4,45 @@ import java.util.List;
 
 import template.data.education.School;
 import template.m1.LatLon;
+import template.data.geocode.*;
 
 public class LocationDataWrapper {
 	private LatLon location = null;
+	private Double locationWeight =1.0;
 	private Integer transitScore = null;
+	private Double transitWeight =1.0;
 	private List<School> schools = null;
+	private Double schoolWeight =1.0;
 	private Integer medianIncome = null;
+	private Double incomeWeight =1.0;
 	private Double medianAge = null;
+	private Double ageWeight =1.0;
 	private Integer marriedCoupleFamilyHouseholds = null;
+	private Double householdWeight =1.0;
 	private Integer totalHouseholds = null;
+	
 	private Double score = null;
 
 	public LocationDataWrapper(double lat, double lon) {
 		this.location = new LatLon(lat, lon);
 	}
+	
+	//address is address, zipcode, or city name
+	public LocationDataWrapper(String address){
+		setLocation(address);
+	}
+	
+	public LocationDataWrapper() {
+		
+	}
+
+	//address is address, zipcode, or city name
+	public void setLocation(String address){
+		//TODO call google, string to lat lon
+		this.location = GeocodeService.getLatLon(address);
+	}
+	
+	
 
 	@Override
 	public String toString() {
@@ -89,5 +114,26 @@ public class LocationDataWrapper {
 
 	public void setScore(Double score) {
 		this.score = score;
+	}
+
+	public Double compareToIdeal(LocationDataWrapper ideal) {
+		this.score = 0.0;
+		
+
+	// private LatLon location = null;
+		
+	// private Integer transitScore = null;
+		score += (1 - Math.abs(ideal.transitScore - this.transitScore)/ideal.transitScore)*this.transitWeight;
+	// private List<School> schools = null;
+		score += (schools.get(0).aypResultYear*.7 + schools.get(1).aypResultYear*.3)*this.schoolWeight;
+	// private Integer medianIncome = null;
+		score += (1 - Math.abs(ideal.medianIncome - this.medianIncome)/ideal.medianIncome)*this.incomeWeight;
+	// private Double medianAge = null;
+		score += (1 - Math.abs(ideal.medianAge - this.medianAge)/ideal.medianAge)*this.ageWeight;
+	// private Integer marriedCoupleFamilyHouseholds = null;
+		
+	// private Integer totalHouseholds = null;
+		
+		return score;
 	}
 }

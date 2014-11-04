@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import template.data.census.CensusService;
+import template.data.geocode.*;
 import template.data.education.EducationService;
 import template.data.fipsconversion.FipsConversionService;
 import template.m1.LatLon;
@@ -23,6 +23,9 @@ import template.scoring.LocationDataWrapper;
 
 @Controller
 public class MainController {
+	
+	private final int WIDTH_OF_TARGET_BOX = 2;
+	
 	@RequestMapping("/")
 	public String home() {
 
@@ -73,19 +76,22 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/m2", method = RequestMethod.POST)
-	public String m2submit(@ModelAttribute LatLon latLon, Model model) {
+	public String m2submit(@ModelAttribute LatLon latLon,@ModelAttribute LocationDataWrapper ideal, Model model) {
 		List<LocationDataWrapper> locationDataWrappers = new ArrayList<LocationDataWrapper>();
 		if (latLon == null) {
 			latLon = new LatLon();
 		}
+		//TODO INITIALIZE ideal
+		if(ideal == null){
+			ideal = new LocationDataWrapper();
+		}
 		
-		Random r = new Random();
-		for (int i = -2; i < 3; ++i) {
-			for (int j = -2 ; j < 3; ++j) {
+		for (int i = -1*WIDTH_OF_TARGET_BOX; i <= WIDTH_OF_TARGET_BOX; ++i) {
+			for (int j = -1* WIDTH_OF_TARGET_BOX ; j <= WIDTH_OF_TARGET_BOX; ++j) {
 				LocationDataWrapper toAdd = new LocationDataWrapper(latLon.getLatitude() + i * 0.01,
 						latLon.getLongitude() + j * 0.01);
 				LocationDataPopulator.populate(toAdd);
-				toAdd.setScore(r.nextDouble());
+				toAdd.setScore(toAdd.compareToIdeal(ideal));
 				locationDataWrappers.add(toAdd);
 			}
 		}
