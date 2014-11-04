@@ -3,8 +3,8 @@ package template.scoring;
 import java.util.List;
 
 import template.data.education.School;
+import template.data.geocode.GeocodeService;
 import template.m1.LatLon;
-import template.data.geocode.*;
 
 public class LocationDataWrapper {
 	private LatLon location = null;
@@ -143,7 +143,12 @@ public class LocationDataWrapper {
 	// private LatLon location = null;
 		
 	// private Integer transitScore = null;
-		score += (1 - Math.abs(ideal.transitScore - this.transitScore)/ideal.transitScore)*this.transitWeight;
+		try {
+			score += (1 - Math.abs(ideal.transitScore - this.transitScore)/ideal.transitScore)*this.transitWeight;
+		} catch (ArithmeticException e) {
+			// TODO: fix this bad exception handling
+			e.printStackTrace();
+		}
 	// private List<School> schools = null;
 		score += (schools.get(0).aypResultYear*.7 + schools.get(1).aypResultYear*.3)*this.schoolWeight;
 	// private Integer medianIncome = null;
