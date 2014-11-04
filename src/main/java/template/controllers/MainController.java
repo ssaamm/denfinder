@@ -23,9 +23,9 @@ import template.scoring.LocationDataWrapper;
 
 @Controller
 public class MainController {
-	
+
 	private final int WIDTH_OF_TARGET_BOX = 2;
-	
+
 	@RequestMapping("/")
 	public String home() {
 
@@ -58,17 +58,19 @@ public class MainController {
 
 	@RequestMapping("education")
 	public String education(Model model) {
-		model.addAttribute("schools", EducationService.getSchools(31.5472, -97.1139, 0, 2));
+		model.addAttribute("schools",
+				EducationService.getSchools(31.5472, -97.1139, 0, 2));
 		return "education";
 	}
 
 	@RequestMapping("census")
 	public String census(Model model) {
-		model.addAttribute("places",
-				CensusService.getPlaces(FipsConversionService.getCountyFipsCode(31.5472, -97.1139)));
+		model.addAttribute("places", CensusService
+				.getPlaces(FipsConversionService.getCountyFipsCode(31.5472,
+						-97.1139)));
 		return "census";
 	}
-	
+
 	@RequestMapping(value = "/m2", method = RequestMethod.GET)
 	public String m2input(Model model) {
 		model.addAttribute("ideal", new LocationDataWrapper());
@@ -76,32 +78,34 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/m2", method = RequestMethod.POST)
-	public String m2submit(@ModelAttribute LocationDataWrapper idealLoc, Model model) {
+	public String m2submit(@ModelAttribute LocationDataWrapper idealLoc,
+			Model model) {
 		List<LocationDataWrapper> locationDataWrappers = new ArrayList<LocationDataWrapper>();
-		
-		
-		if(idealLoc == null){
+		if (idealLoc == null) {
 			idealLoc = new LocationDataWrapper();
 		}
 		idealLoc.setLocation();
 		LatLon latLon = idealLoc.getLocation();
-		
-		for (int i = -1*WIDTH_OF_TARGET_BOX; i <= WIDTH_OF_TARGET_BOX; ++i) {
-			for (int j = -1* WIDTH_OF_TARGET_BOX ; j <= WIDTH_OF_TARGET_BOX; ++j) {
-				LocationDataWrapper toAdd = new LocationDataWrapper(latLon.getLatitude() + i * 0.01,
-						latLon.getLongitude() + j * 0.01);
+
+		for (int i = -1 * WIDTH_OF_TARGET_BOX; i <= WIDTH_OF_TARGET_BOX; ++i) {
+			for (int j = -1 * WIDTH_OF_TARGET_BOX; j <= WIDTH_OF_TARGET_BOX; ++j) {
+				LocationDataWrapper toAdd = new LocationDataWrapper(
+						latLon.getLatitude() + i * 0.01, latLon.getLongitude()
+								+ j * 0.01);
 				LocationDataPopulator.populate(toAdd);
 				toAdd.setScore(toAdd.compareToIdeal(idealLoc));
 				locationDataWrappers.add(toAdd);
 			}
 		}
 
-		Collections.sort(locationDataWrappers, new Comparator<LocationDataWrapper>() {
-			@Override
-			public int compare(LocationDataWrapper ldw1, LocationDataWrapper ldw2) {
-				return (int) ((ldw2.getScore() - ldw1.getScore()) * 1000);
-			}
-		});
+		Collections.sort(locationDataWrappers,
+				new Comparator<LocationDataWrapper>() {
+					@Override
+					public int compare(LocationDataWrapper ldw1,
+							LocationDataWrapper ldw2) {
+						return (int) ((ldw2.getScore() - ldw1.getScore()) * 1000);
+					}
+				});
 
 		model.addAttribute("locationDataWrappers", locationDataWrappers);
 		return "m2submit";
@@ -120,17 +124,19 @@ public class MainController {
 		if (latLon == null) {
 			latLon = new LatLon();
 		}
-		String fipsCode = FipsConversionService.getCountyFipsCode(latLon.getLatitude(),
-				latLon.getLongitude());
-		LatLonData toAdd = new LatLonData(latLon, CensusService.getPlaces(fipsCode),
-				EducationService.getSchools(latLon, 5));
+		String fipsCode = FipsConversionService.getCountyFipsCode(
+				latLon.getLatitude(), latLon.getLongitude());
+		LatLonData toAdd = new LatLonData(latLon,
+				CensusService.getPlaces(fipsCode), EducationService.getSchools(
+						latLon, 5));
 		latLons.add(toAdd);
 		model.addAttribute("latLons", latLons);
 		return "m1submit";
 	}
 
 	@RequestMapping(value = "/m1bulk", method = RequestMethod.POST)
-	public String m1submitbulk(@ModelAttribute LatLonBulk latLonBulk, Model model) {
+	public String m1submitbulk(@ModelAttribute LatLonBulk latLonBulk,
+			Model model) {
 		model.addAttribute("message", latLonBulk.getInput());
 		String[] lines = latLonBulk.getInput().split("\n");
 		List<LatLonData> latLons = new ArrayList<LatLonData>();
@@ -145,9 +151,10 @@ public class MainController {
 			Double lat = new Double(split[0]);
 			Double lon = new Double(split[1]);
 			LatLon latLon = new LatLon(lat, lon);
-			String fipsCode = FipsConversionService.getCountyFipsCode(latLon.getLatitude(),
-					latLon.getLongitude());
-			LatLonData toAdd = new LatLonData(latLon, CensusService.getPlaces(fipsCode),
+			String fipsCode = FipsConversionService.getCountyFipsCode(
+					latLon.getLatitude(), latLon.getLongitude());
+			LatLonData toAdd = new LatLonData(latLon,
+					CensusService.getPlaces(fipsCode),
 					EducationService.getSchools(latLon, 5));
 			latLons.add(toAdd);
 		}

@@ -81,12 +81,12 @@
             <div class="form-group">
               <label for="">Age</label>
               <select th:field="*{medianAge}" name="" id="" class="form-control">
-                <option value="">Teens</option>
-                <option value="">20's</option>
-                <option value="">30's</option>
-                <option value="">40's</option>
-                <option value="">50's</option>
-                <option value="">60's</option>
+                <option value="15">Teens</option>
+                <option value="25">20's</option>
+                <option value="35">30's</option>
+                <option value="45">40's</option>
+                <option value="55">50's</option>
+                <option value="65">60's</option>
               </select>
             </div>
             <div class="form-group">
@@ -100,9 +100,9 @@
             <div class="form-group">
               <label for="">Importance School System Quality</label>
               <select th:field="*{schoolWeight}" name="" id="" class="form-control">
-                <option value="2">Very Important</option>
-                <option value="1">Somewhat Important</option>
-                <option value="0">Not Very Important</option>
+                <option value="2.0">Very Important</option>
+                <option value="1.0">Somewhat Important</option>
+                <option value="0.0">Not Very Important</option>
               </select>
             </div>
             <button type="submit" class="btn btn-primary btn-lg btn-block">Find Housing</button>
