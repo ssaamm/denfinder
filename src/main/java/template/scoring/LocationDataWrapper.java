@@ -131,8 +131,10 @@ public class LocationDataWrapper {
 			e.printStackTrace();
 		}
 	// private List<School> schools = null;
+		if (schools.size() >= 2) {
 		score += (schools.get(0).getQuality() * .07 + schools.get(1).getQuality() * .03)
 				* this.schoolWeight;
+		}
 	// private Integer medianIncome = null;
 		if (ideal.medianIncome != null && this.medianIncome != null) {
 			score += (1 - Math.abs(ideal.medianIncome - this.medianIncome) / ideal.medianIncome)
