@@ -4,7 +4,6 @@ import java.util.List;
 
 import template.data.education.School;
 import template.m1.LatLon;
-import template.data.geocode.*;
 
 public class LocationDataWrapper {
 	private LatLon location = null;
@@ -43,26 +42,8 @@ public class LocationDataWrapper {
 		this.location = new LatLon(lat, lon);
 	}
 	
-	//address is address, zipcode, or city name
-	public LocationDataWrapper(String address){
-		setLocation(address);
-	}
-	
 	public LocationDataWrapper() {
-		
 	}
-
-	//address is address, zipcode, or city name
-	public void setLocation(String addr){
-		this.address = addr;
-		setLocation();
-	}
-	public void setLocation(){
-		//TODO call google, string to lat lon
-		this.location = GeocodeService.getLatLon(address);
-	}
-	
-	
 
 	@Override
 	public String toString() {
@@ -143,13 +124,27 @@ public class LocationDataWrapper {
 	// private LatLon location = null;
 		
 	// private Integer transitScore = null;
-		score += (1 - Math.abs(ideal.transitScore - this.transitScore)/ideal.transitScore)*this.transitWeight;
+		try {
+			score += (1 - Math.abs(ideal.transitScore - this.transitScore)/ideal.transitScore)*this.transitWeight;
+		} catch (ArithmeticException e) {
+			// TODO: fix this bad exception handling
+			e.printStackTrace();
+		}
 	// private List<School> schools = null;
-		score += (schools.get(0).aypResultYear*.7 + schools.get(1).aypResultYear*.3)*this.schoolWeight;
+		if (schools.size() >= 2) {
+		score += (schools.get(0).getQuality() * .07 + schools.get(1).getQuality() * .03)
+				* this.schoolWeight;
+		}
 	// private Integer medianIncome = null;
-		score += (1 - Math.abs(ideal.medianIncome - this.medianIncome)/ideal.medianIncome)*this.incomeWeight;
+		if (ideal.medianIncome != null && this.medianIncome != null) {
+			score += (1 - Math.abs(ideal.medianIncome - this.medianIncome) / ideal.medianIncome)
+					* this.incomeWeight;
+		}
 	// private Double medianAge = null;
-		score += (1 - Math.abs(ideal.medianAge - this.medianAge)/ideal.medianAge)*this.ageWeight;
+		if (ideal.medianAge != null && this.medianAge != null) {
+			score += (1 - Math.abs(ideal.medianAge - this.medianAge) / ideal.medianAge)
+					* this.ageWeight;
+		}
 	// private Integer marriedCoupleFamilyHouseholds = null;
 		
 	// private Integer totalHouseholds = null;

@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import template.data.WebApiService;
 import template.data.census.CensusService;
@@ -58,8 +59,21 @@ public class GovCensusService extends WebApiService {
 			JSONArray apiResponse = getResponseArr(encodeUrl(cAcsBaseUrl, params, false));
 			for (int i = 1; i < apiResponse.length(); ++i) {
 				JSONArray arr = apiResponse.getJSONArray(i);
-				result.add(new GovData(arr.getInt(0), arr.getDouble(1), arr.getInt(2), arr
-						.getInt(3)));
+				Integer B19013_001E = null;
+				try {
+					B19013_001E = arr.getInt(0);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				Double B01002_001E = null;
+				try {
+					B01002_001E = arr.getDouble(1);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				Integer B11001_003E = arr.getInt(2);
+				Integer B11001_001E = arr.getInt(3);
+				result.add(new GovData(B19013_001E, B01002_001E, B11001_003E, B11001_001E));
 			}
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block

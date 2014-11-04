@@ -31,17 +31,15 @@ public class School {
 
 	@Override
 	public String toString() {
-		return "School [schoolId=" + schoolId + ", schoolName=" + schoolName + ", zip=" + zip
-				+ ", address=" + address + ", city=" + city + ", districtId=" + districtId
-				+ ", districtLeaId=" + districtLeaId + ", aypResult=" + aypResult
-				+ ", aypResultYear=" + aypResultYear + ", distance=" + distance
-				+ ", totalEnrollment=" + totalEnrollment + ", gradeLevel=" + gradeLevel
-				+ ", gradesServed=" + gradesServed + ", latitude=" + latitude + ", longitude="
-				+ longitude + ", phoneNumber=" + phoneNumber + ", schoolDistrictName="
-				+ schoolDistrictName + ", schoolType=" + schoolType + ", state=" + state
-				+ ", totalStudentTeacherRatio=" + totalStudentTeacherRatio + ", website=" + website
-				+ ", ncesId=" + ncesId + ", url=" + url + ", testRatingText=" + testRatingText
-				+ ", testRatingImageLarge=" + testRatingImageLarge + ", testRatingImageSmall="
-				+ testRatingImageSmall + ", testRatingYear=" + testRatingYear + "]";
+		return "School [schoolId=" + schoolId + ", score=" + getQuality() + "]";
+	}
+
+	public int getQuality() {
+		String rating = "0";
+		String[] split = testRatingText.split("\\s+");
+		if (split.length >= 3) {
+			rating = split[2];
+		}
+		return Integer.valueOf(rating);
 	}
 }

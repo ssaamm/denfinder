@@ -4,17 +4,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import template.data.census.CensusService;
-import template.data.geocode.*;
 import template.data.education.EducationService;
 import template.data.fipsconversion.FipsConversionService;
+import template.data.geocode.GeocodeService;
 import template.m1.LatLon;
 import template.m1.LatLonBulk;
 import template.m1.LatLonData;
@@ -24,7 +26,7 @@ import template.scoring.LocationDataWrapper;
 @Controller
 public class MainController {
 
-	private final int WIDTH_OF_TARGET_BOX = 2;
+	private final int WIDTH_OF_TARGET_BOX = 1;
 
 	@RequestMapping("/")
 	public String home() {
@@ -78,15 +80,22 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/m2", method = RequestMethod.POST)
-	public String m2submit(@ModelAttribute LocationDataWrapper idealLoc,
-			Model model) {
+	public String m2submit(@RequestParam Map<String, String> allRequestParams, Model model) {
 		List<LocationDataWrapper> locationDataWrappers = new ArrayList<LocationDataWrapper>();
+
+		LocationDataWrapper idealLoc = null;
 		if (idealLoc == null) {
 			idealLoc = new LocationDataWrapper();
 		}
-		idealLoc.setLocation();
-		LatLon latLon = idealLoc.getLocation();
+		String address = allRequestParams.get("address");
+		idealLoc.setLocation(GeocodeService.getLatLon(address));
+		idealLoc.setMedianAge(Double.valueOf(allRequestParams.get("medianAge")));
+		idealLoc.setMedianIncome(Integer.valueOf(allRequestParams.get("medianIncome")));
+		idealLoc.setSchoolWeight(Double.valueOf(allRequestParams.get("schoolWeight")));
+		
+		LocationDataPopulator.populate(idealLoc);
 
+		LatLon latLon = idealLoc.getLocation();
 		for (int i = -1 * WIDTH_OF_TARGET_BOX; i <= WIDTH_OF_TARGET_BOX; ++i) {
 			for (int j = -1 * WIDTH_OF_TARGET_BOX; j <= WIDTH_OF_TARGET_BOX; ++j) {
 				LocationDataWrapper toAdd = new LocationDataWrapper(
