@@ -26,7 +26,7 @@ import template.scoring.LocationDataWrapper;
 @Controller
 public class MainController {
 
-	private final int WIDTH_OF_TARGET_BOX = 2;
+	private final int WIDTH_OF_TARGET_BOX = 1;
 
 	@RequestMapping("/")
 	public String home() {
@@ -89,6 +89,10 @@ public class MainController {
 		}
 		String address = allRequestParams.get("address");
 		idealLoc.setLocation(GeocodeService.getLatLon(address));
+		idealLoc.setMedianAge(Double.valueOf(allRequestParams.get("medianAge")));
+		idealLoc.setMedianIncome(Integer.valueOf(allRequestParams.get("medianIncome")));
+		idealLoc.setSchoolWeight(Double.valueOf(allRequestParams.get("schoolWeight")));
+		
 		LocationDataPopulator.populate(idealLoc);
 
 		LatLon latLon = idealLoc.getLocation();
