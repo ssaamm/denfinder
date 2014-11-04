@@ -7,16 +7,42 @@ import template.m1.LatLon;
 
 public class LocationDataWrapper {
 	private LatLon location = null;
+	private Double locationWeight =1.0;
 	private Integer transitScore = null;
+	private Double transitWeight =1.0;
 	private List<School> schools = null;
+	private Double schoolWeight =1.0;
 	private Integer medianIncome = null;
+	private Double incomeWeight =1.0;
 	private Double medianAge = null;
+	private Double ageWeight =1.0;
 	private Integer marriedCoupleFamilyHouseholds = null;
+	private Double householdWeight =1.0;
 	private Integer totalHouseholds = null;
+	private String address = null;
 	private Double score = null;
+
+	public Double getSchoolWeight() {
+		return schoolWeight;
+	}
+
+	public void setSchoolWeight(Double schoolWeight) {
+		this.schoolWeight = schoolWeight;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
 	public LocationDataWrapper(double lat, double lon) {
 		this.location = new LatLon(lat, lon);
+	}
+	
+	public LocationDataWrapper() {
 	}
 
 	@Override
@@ -89,5 +115,40 @@ public class LocationDataWrapper {
 
 	public void setScore(Double score) {
 		this.score = score;
+	}
+
+	public Double compareToIdeal(LocationDataWrapper ideal) {
+		this.score = 0.0;
+		
+
+	// private LatLon location = null;
+		
+	// private Integer transitScore = null;
+		try {
+			score += (1 - Math.abs(ideal.transitScore - this.transitScore)/ideal.transitScore)*this.transitWeight;
+		} catch (ArithmeticException e) {
+			// TODO: fix this bad exception handling
+			e.printStackTrace();
+		}
+	// private List<School> schools = null;
+		if (schools.size() >= 2) {
+		score += (schools.get(0).getQuality() * .07 + schools.get(1).getQuality() * .03)
+				* this.schoolWeight;
+		}
+	// private Integer medianIncome = null;
+		if (ideal.medianIncome != null && this.medianIncome != null) {
+			score += (1 - Math.abs(ideal.medianIncome - this.medianIncome) / ideal.medianIncome)
+					* this.incomeWeight;
+		}
+	// private Double medianAge = null;
+		if (ideal.medianAge != null && this.medianAge != null) {
+			score += (1 - Math.abs(ideal.medianAge - this.medianAge) / ideal.medianAge)
+					* this.ageWeight;
+		}
+	// private Integer marriedCoupleFamilyHouseholds = null;
+		
+	// private Integer totalHouseholds = null;
+		
+		return score;
 	}
 }
