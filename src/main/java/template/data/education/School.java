@@ -44,4 +44,13 @@ public class School {
 				+ ", testRatingImageLarge=" + testRatingImageLarge + ", testRatingImageSmall="
 				+ testRatingImageSmall + ", testRatingYear=" + testRatingYear + "]";
 	}
+
+	public int getQuality() {
+		String rating = "0";
+		String[] split = testRatingText.split("\\s+");
+		if (split.length >= 3) {
+			rating = split[2];
+		}
+		return Integer.valueOf(rating);
+	}
 }

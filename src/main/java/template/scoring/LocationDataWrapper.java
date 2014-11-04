@@ -150,7 +150,7 @@ public class LocationDataWrapper {
 			e.printStackTrace();
 		}
 	// private List<School> schools = null;
-		score += (schools.get(0).aypResultYear*.7 + schools.get(1).aypResultYear*.3)*this.schoolWeight;
+		score += (schools.get(0).getQuality()*.7 + schools.get(1).getQuality()*.3)*this.schoolWeight;
 	// private Integer medianIncome = null;
 		score += (1 - Math.abs(ideal.medianIncome - this.medianIncome)/ideal.medianIncome)*this.incomeWeight;
 	// private Double medianAge = null;
