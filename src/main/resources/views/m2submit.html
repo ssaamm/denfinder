@@ -53,9 +53,9 @@
     </div>
     <div id="data">
     	<div th:each="ldw : ${locationDataWrappers}">
-    		<h2 th:text="${ldw.location + ': ' + ldw.score}">Lat, Lon</h2>
+    		<h2 th:text="${ldw.location + ': ' + ldw.getScore()}">Lat, Lon</h2>
     		<div>
-    		<h3 th:text="${ldw.score}">Score:</h3>
+    		<h3 th:text="${ldw.getScore()}">Score:</h3>
     		<p th:text="${ldw}">[ldw as string]</p>
     		</div>
     	</div>

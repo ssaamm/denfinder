@@ -91,7 +91,7 @@ public class MainController {
 		idealLoc.setLocation(GeocodeService.getLatLon(address));
 		idealLoc.setMedianAge(Double.valueOf(allRequestParams.get("medianAge")));
 		idealLoc.setMedianIncome(Integer.valueOf(allRequestParams.get("medianIncome")));
-		idealLoc.setSchoolWeight(Double.valueOf(allRequestParams.get("schoolWeight")));
+		idealLoc.setSchoolWeightInput(Double.valueOf(allRequestParams.get("schoolWeightInput")));
 		
 		LocationDataPopulator.populate(idealLoc);
 
@@ -102,7 +102,7 @@ public class MainController {
 						latLon.getLatitude() + i * 0.01, latLon.getLongitude()
 								+ j * 0.01);
 				LocationDataPopulator.populate(toAdd);
-				toAdd.setScore(toAdd.compareToIdeal(idealLoc));
+				toAdd.compareToIdeal(idealLoc);
 				locationDataWrappers.add(toAdd);
 			}
 		}
