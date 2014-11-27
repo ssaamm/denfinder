@@ -28,7 +28,6 @@ public class GeocodeService extends WebApiService {
 		try {
 			logger.debug(encodeUrl(cGeocodeBaseUrl, params));
 			JSONObject apiResponse = getResponseObj(encodeUrl(cGeocodeBaseUrl, params));
-			logger.debug(apiResponse.toString(4));
 			JSONArray results = apiResponse.getJSONArray("results");
 			if (results.length() < 1) {
 				return result;
