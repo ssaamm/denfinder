@@ -73,6 +73,13 @@ public class MainController {
 		return "census";
 	}
 
+	// Weird thing: this still POSTs to /m2
+	@RequestMapping(value = "/m3", method = RequestMethod.GET)
+	public String m3input(Model model) {
+		model.addAttribute("ideal", new LocationDataWrapper());
+		return "m3input";
+	}
+
 	@RequestMapping(value = "/m2", method = RequestMethod.GET)
 	public String m2input(Model model) {
 		model.addAttribute("ideal", new LocationDataWrapper());
