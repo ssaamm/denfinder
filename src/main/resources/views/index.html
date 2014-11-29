@@ -1,84 +1,74 @@
-<!doctype html>
-<html class="no-js">
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>denfinder</title>
-    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/global.css">
-    <!-- endbuild -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/ico/favicon.ico">
 
-  </head>
-  <body>
-    <!--[if lt IE 10]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <title>Hive Search</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../..//js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+  </head>
 
-    <div class="promo">
-      <div class="promo-mask">
-        
-        <nav class="navbar navbar-default navbar-static-top navbar-home" role="navigation">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <a class="navbar-brand" href="./">
-                <img class="logo-svg" src="/images/icon_23241.svg">
-                <h3 class="logo-text">DenFinder</h3>
-              </a>
-              <a class="navbar-brand" href="./m1">
-                <h3 class="logo-text">Milestone 1</h3>
-              </a>
-              <a class="navbar-brand" href="./m2">
-                <h3 class="logo-text">Milestone 2</h3>
-              </a>
-            </div>
-          </div>
-        </nav>
+  <body>
 
-        <div class="promo-content">
-          <div class="promo-headline">
-            There's No Place Like Home
-          </div>
-          <div class="promo-subhead">
-            Find homes in neighborhoods you'll love
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="housing-form-container container-fluid">
-      <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-          <h2 class="text-center">
+	<div id="headerwrap">
+	    <div class="container">
+			<div class="row">
+					<h1>HIVE SEARCH</h1>
+					<h4>FIND NEIGHBORHOODS YOU'LL LOVE</h4>
+			</div><! --/row -->
+	    </div> <!-- /container -->
+	</div><! --/headerwrap -->
+	
+	<div class="container">
+      <div class="row mt mb">
+        <div class="col-md-6 col-md-offset-3">
+          <h1 class="text-center">
             Start Here
-          </h2>
+          </h1>
           <p class="text-center housing-form-summary">
-            Let's find a neighborhood that best matches your life stage and preferences. 
+            Let's find a neighborhood that best matches your life stage and preferences
           </p>
-          <form>
+          <form action="#" th:action="@{/map}" method="post"" th:object="${ideal}">
             <div class="form-group">
               <label for="">
                 Preferred Location
               </label>
-              <input type="text" class="form-control" placeholder="City, state or zip code" />
+              <input type="text" class="form-control" placeholder="City, state or zip code" th:field="*{address}" name="" />
             </div>
             <div class="form-group">
               <label for="">
                 Income Range
               </label>
-              <select name="" id="" class="form-control">
-                <option value="0-25">Below $25K</option>
-                <option value="25-50">Above $25K</option>
-                <option value="50-75">Above $50K</option>
-                <option value="75-100">Above $75K</option>
-                <option value="100+">Above $100K</option>
+              <select th:field="*{medianIncome}" name="" id="" class="form-control">
+                <option value="15000">Below $25K</option>
+                <option value="37500">Above $25K</option>
+                <option value="62500">Above $50K</option>
+                <option value="87500">Above $75K</option>
+                <option value="150000">Above $100K</option>
               </select>
             </div>
             <div class="form-group">
               <label for="">Relationship Status</label>
-              <select name="" id="" class="form-control">
+              <select th:field="*{marriedCoupleFamilyHouseholds}" name="" id="" class="form-control">
                 <option value="Single">Single</option>
                 <option value="Married">Married</option>
                 <option value="It's Complicated">It's Complicated</option>
@@ -86,13 +76,13 @@
             </div>
             <div class="form-group">
               <label for="">Age</label>
-              <select name="" id="" class="form-control">
-                <option value="">Teens</option>
-                <option value="">20's</option>
-                <option value="">30's</option>
-                <option value="">40's</option>
-                <option value="">50's</option>
-                <option value="">60's</option>
+              <select th:field="*{medianAge}" name="" id="" class="form-control">
+                <option value="15">Teens</option>
+                <option value="25">20's</option>
+                <option value="35">30's</option>
+                <option value="45">40's</option>
+                <option value="55">50's</option>
+                <option value="65">60's</option>
               </select>
             </div>
             <div class="form-group">
@@ -105,29 +95,34 @@
             </div>
             <div class="form-group">
               <label for="">Importance School System Quality</label>
-              <select name="" id="" class="form-control">
-                <option value="">Very Important</option>
-                <option value="">Somewhat Important</option>
-                <option value="">Not Very Important</option>
+              <select th:field="*{schoolWeight}" name="" id="" class="form-control">
+                <option value="2.0">Very Important</option>
+                <option value="1.0">Somewhat Important</option>
+                <option value="0.0">Not Very Important</option>
               </select>
             </div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Find Housing</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">FIND YOUR HOME SWEET HOME</button>
           </form>
         </div>
       </div>
     </div>
 
+	<div id="footerwrap">
+		<div class="container">
+			<div class="row centered">
+				<div class="col-lg-4">
+					<p>Made with love by Cre-double-dog-dera</p>
+				</div>
+			</div>
+		</div>
+	</div><! --/footerwrap -->
+	
 
-    <div class="footer">
-      <div class="container-fluid">
-        Built with love from the Cre-double-dog-dera team  
-      </div>
-    </div>
 
-    <!-- build:js scripts/main.js -->
-    <script src="/js/jquery.js"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="/js/bootstrap.js"></script>
-    <script src="/js/main.js"></script>
-    <!-- endbuild -->
-</body>
+  </body>
 </html>

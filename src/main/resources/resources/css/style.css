@@ -17,14 +17,12 @@
 
 
 ::-moz-selection {
-    background: #f2c2c9;
-    color: #a4003a;
+    background: #fee5ac;
     text-shadow: none;
 }
 
 ::selection {
-    background: #16a085;
-    color: #a4003a;
+    background: #fee5ac;
     text-shadow: none;
 }
 
