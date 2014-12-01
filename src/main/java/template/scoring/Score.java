@@ -31,31 +31,35 @@ public class Score {
 	}
 	
 	void compare(LocationDataWrapper current, LocationDataWrapper ideal){
-		//transit score
+		
 		try {
+			//transit score
 			transitScore =  (1 - Math.abs(ideal.getTransitScore() - current.getTransitScore())/ideal.getTransitScore())
-					* this.transitWeight ;
+					* this.transitWeight;
+			transitScore = transitScore > 0 ? transitScore: 0.0;
+		
+			//school score
+			if (current.getSchools().size() >= 2) {
+				schoolScore = (current.getSchools().get(0).getQuality() * .7 + current.getSchools().get(1).getQuality() * .3)
+						* this.schoolWeight;
+			}
+			
+			//income score
+			if (ideal.getMedianIncome() != null && current.getMedianIncome() != null) {
+				incomeScore = (1 - (double)Math.abs(ideal.getMedianIncome() - current.getMedianIncome()) / (double)ideal.getMedianIncome())
+						* this.incomeWeight;
+				incomeScore = incomeScore > 0 ? incomeScore: 0.0;
+			}
+			
+			//age score
+			if (ideal.getMedianAge() != null && current.getMedianAge() != null) {
+				ageScore = (1 - Math.abs(ideal.getMedianAge() - current.getMedianAge()) / ideal.getMedianAge())
+						* this.ageWeight;
+				ageScore = ageScore > 0 ? ageScore : 0.0;
+			}
 		} catch (ArithmeticException e) {
 			// TODO: fix this bad exception handling
 			e.printStackTrace();
-		}
-		
-		//school score
-		if (current.getSchools().size() >= 2) {
-			schoolScore = (current.getSchools().get(0).getQuality() * .7 + current.getSchools().get(1).getQuality() * .3)
-					* this.schoolWeight;
-		}
-		
-		//income score
-		if (ideal.getMedianIncome() != null && current.getMedianIncome() != null) {
-			incomeScore = (1 - Math.abs(ideal.getMedianIncome() - current.getMedianIncome()) / ideal.getMedianIncome())
-					* this.incomeWeight;
-		}
-		
-		//age score
-		if (ideal.getMedianAge() != null && current.getMedianAge() != null) {
-			ageScore = (1 - Math.abs(ideal.getMedianAge() - current.getMedianAge()) / ideal.getMedianAge())
-					* this.ageWeight;
 		}
 		
 	}
