@@ -7,27 +7,46 @@ import template.m1.LatLon;
 
 public class LocationDataWrapper {
 	private LatLon location = null;
-	private Double locationWeight =1.0;
-	private Integer transitScore = null;
-	private Double transitWeight =1.0;
 	private List<School> schools = null;
-	private Double schoolWeight =1.0;
+	private Double transitScore = null;
 	private Integer medianIncome = null;
-	private Double incomeWeight =1.0;
 	private Double medianAge = null;
-	private Double ageWeight =1.0;
 	private Integer marriedCoupleFamilyHouseholds = null;
-	private Double householdWeight =1.0;
 	private Integer totalHouseholds = null;
 	private String address = null;
-	private Double score = null;
+	private Score score = null;
+	
+	//for hacks
+	private Double schoolWeightInput = null;
+	
+	public Double getSchoolWeightInput() {
+		return schoolWeightInput;
+	}
+
+	public void setSchoolWeightInput(Double schoolWeightInput) {
+		this.schoolWeightInput = schoolWeightInput;
+		this.setSchoolWeight(schoolWeightInput);
+	}
+
+	public Double getTransitScore() {
+		return transitScore;
+	}
+
+	public void setTransitScore(Double transitScore) {
+		this.transitScore = transitScore;
+	}
+
+	public void setTransitScore(Integer transitScore2) {
+		// TODO Auto-generated method stub
+		this.transitScore = (double)transitScore2;
+	}
 
 	public Double getSchoolWeight() {
-		return schoolWeight;
+		return score.getSchoolWeight();
 	}
 
 	public void setSchoolWeight(Double schoolWeight) {
-		this.schoolWeight = schoolWeight;
+		this.score.setSchoolWeight(schoolWeight);
 	}
 
 	public String getAddress() {
@@ -40,17 +59,19 @@ public class LocationDataWrapper {
 
 	public LocationDataWrapper(double lat, double lon) {
 		this.location = new LatLon(lat, lon);
+		this.score = new Score();
 	}
 	
 	public LocationDataWrapper() {
+		this.score = new Score();
 	}
 
 	@Override
 	public String toString() {
-		return "LocationDataWrapper [location=" + location + ", transitScore=" + transitScore
+		return this.score.toString();/*LocationDataWrapper [location=" + location + ", transitScore=" + transitScore
 				+ ", schools=" + schools + ", medianIncome=" + medianIncome + ", medianAge="
 				+ medianAge + ", marriedCoupleFamilyHouseholds=" + marriedCoupleFamilyHouseholds
-				+ ", totalHouseholds=" + totalHouseholds + ", score=" + score + "]";
+				+ ", totalHouseholds=" + totalHouseholds + ", score=" + score + "]";*/
 	}
 
 	public LatLon getLocation() {
@@ -59,14 +80,6 @@ public class LocationDataWrapper {
 
 	public void setLocation(LatLon location) {
 		this.location = location;
-	}
-
-	public Integer getTransitScore() {
-		return transitScore;
-	}
-
-	public void setTransitScore(Integer transitScore) {
-		this.transitScore = transitScore;
 	}
 
 	public List<School> getSchools() {
@@ -110,45 +123,12 @@ public class LocationDataWrapper {
 	}
 
 	public Double getScore() {
-		return score;
+		return score.getTotalScore();
 	}
 
-	public void setScore(Double score) {
-		this.score = score;
+	public void compareToIdeal(LocationDataWrapper ideal) {
+		this.score.compare(this, ideal);
+		return;
 	}
 
-	public Double compareToIdeal(LocationDataWrapper ideal) {
-		this.score = 0.0;
-		
-
-	// private LatLon location = null;
-		
-	// private Integer transitScore = null;
-		try {
-			score += (1 - Math.abs(ideal.transitScore - this.transitScore)/ideal.transitScore)*this.transitWeight;
-		} catch (ArithmeticException e) {
-			// TODO: fix this bad exception handling
-			e.printStackTrace();
-		}
-	// private List<School> schools = null;
-		if (schools.size() >= 2) {
-		score += (schools.get(0).getQuality() * .07 + schools.get(1).getQuality() * .03)
-				* this.schoolWeight;
-		}
-	// private Integer medianIncome = null;
-		if (ideal.medianIncome != null && this.medianIncome != null) {
-			score += (1 - Math.abs(ideal.medianIncome - this.medianIncome) / ideal.medianIncome)
-					* this.incomeWeight;
-		}
-	// private Double medianAge = null;
-		if (ideal.medianAge != null && this.medianAge != null) {
-			score += (1 - Math.abs(ideal.medianAge - this.medianAge) / ideal.medianAge)
-					* this.ageWeight;
-		}
-	// private Integer marriedCoupleFamilyHouseholds = null;
-		
-	// private Integer totalHouseholds = null;
-		
-		return score;
-	}
 }

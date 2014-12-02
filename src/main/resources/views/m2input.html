@@ -30,6 +30,9 @@
               <a class="navbar-brand" href="./m1">
                 <h3 class="logo-text">Milestone 1</h3>
               </a>
+              <a class="navbar-brand" href="./m2">
+                <h3 class="logo-text">Milestone 2</h3>
+              </a>
             </div>
           </div>
         </nav>
@@ -49,8 +52,11 @@
       <div class="row">
         <div class="col-md-4 col-md-offset-4">
           <h2 class="text-center">
-            Input Latitude and Longitude
+            Start Here
           </h2>
+          <p class="text-center housing-form-summary">
+            Let's find a neighborhood that best matches your life stage and preferences. 
+          </p>
           <form action="#" th:action="@{/m2}" method="post"" th:object="${ideal}">
             <div class="form-group">
               <label for="">
@@ -99,7 +105,7 @@
             </div>
             <div class="form-group">
               <label for="">Importance School System Quality</label>
-              <select th:field="*{schoolWeight}" name="" id="" class="form-control">
+              <select th:field="*{schoolWeightInput}" name="" id="" class="form-control">
                 <option value="2.0">Very Important</option>
                 <option value="1.0">Somewhat Important</option>
                 <option value="0.0">Not Very Important</option>

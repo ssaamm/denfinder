@@ -33,6 +33,9 @@
               <a class="navbar-brand" href="./m1">
                 <h3 class="logo-text">Milestone 1</h3>
               </a>
+              <a class="navbar-brand" href="./m2">
+                <h3 class="logo-text">Milestone 2</h3>
+              </a>
             </div>
           </div>
         </nav>
@@ -43,17 +46,16 @@
       <div class="row">
         <div class="col-md-4 col-md-offset-4">
           <h1 class="text-center">
-            Data Dump
+            Scores
           </h2>
         </div>
       </div>
     </div>
-    <p th:text="${ideal}">[ideal as string]<br /></p>
     <div id="data">
     	<div th:each="ldw : ${locationDataWrappers}">
-    		<h2 th:text="${ldw.location + ': ' + ldw.score}">Lat, Lon</h2>
+    		<h2 th:text="${ldw.location + ': ' + ldw.getScore()}">Lat, Lon</h2>
     		<div>
-    		<h3 th:text="${ldw.score}">Score:</h3>
+    		<h3 th:text="${ldw.getScore()}">Score:</h3>
     		<p th:text="${ldw}">[ldw as string]</p>
     		</div>
     	</div>
