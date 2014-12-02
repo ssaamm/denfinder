@@ -34,8 +34,7 @@ public class Score {
 		
 		try {
 			//transit score
-			transitScore =  (1 - Math.abs(ideal.getTransitScore() - current.getTransitScore())/ideal.getTransitScore())
-					* this.transitWeight;
+			transitScore = 0.01 * transitScore * this.transitWeight;
 			transitScore = transitScore > 0 ? transitScore: 0.0;
 		
 			//school score
