@@ -22,13 +22,13 @@ public class MainController {
 	private final int WIDTH_OF_TARGET_BOX = 3;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String m3input(Model model) {
+	public String index(Model model) {
 		model.addAttribute("ideal", new LocationDataWrapper());
 		return "index";
 	}
 
 	@RequestMapping(value = "/map", method = RequestMethod.POST)
-	public String m2submit(@RequestParam Map<String, String> allRequestParams, Model model) {
+	public String map(@RequestParam Map<String, String> allRequestParams, Model model) {
 		List<LocationDataWrapper> locationDataWrappers = new ArrayList<LocationDataWrapper>();
 
 		LocationDataWrapper idealLoc = null;
@@ -39,7 +39,7 @@ public class MainController {
 		idealLoc.setLocation(GeocodeService.getLatLon(address));
 		idealLoc.setMedianAge(Double.valueOf(allRequestParams.get("medianAge")));
 		idealLoc.setMedianIncome(Integer.valueOf(allRequestParams.get("medianIncome")));
-		idealLoc.setSchoolWeight(Double.valueOf(allRequestParams.get("schoolWeight")));
+		idealLoc.setSchoolWeightInput(Double.valueOf(allRequestParams.get("schoolWeightInput")));
 
 		LocationDataPopulator.populate(idealLoc);
 
@@ -50,7 +50,7 @@ public class MainController {
 				LocationDataWrapper toAdd = new LocationDataWrapper(
 						latLon.getLatitude() + i * 0.03, latLon.getLongitude() + j * 0.03);
 				LocationDataPopulator.populate(toAdd);
-				toAdd.setScore(toAdd.compareToIdeal(idealLoc));
+				toAdd.compareToIdeal(idealLoc);
 				if (lowestScore == null) {
 					lowestScore = toAdd.getScore();
 				} else if (lowestScore > toAdd.getScore()) {
