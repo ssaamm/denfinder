@@ -32,8 +32,6 @@ public class MainController {
 	public @ResponseBody ScoreResponse getScore(@RequestParam Map<String, String> allRequestParams,
 			Model model) {
 		LocationDataWrapper idealLoc = new LocationDataWrapper();
-		String address = allRequestParams.get("address");
-		idealLoc.setLocation(GeocodeService.getLatLon(address));
 		idealLoc.setMedianAge(Double.valueOf(allRequestParams.get("medianAge")));
 		idealLoc.setMedianIncome(Integer.valueOf(allRequestParams.get("medianIncome")));
 		idealLoc.setSchoolWeightInput(Double.valueOf(allRequestParams.get("schoolWeightInput")));
@@ -42,10 +40,9 @@ public class MainController {
 				.valueOf(allRequestParams.get("lon"));
 		LocationDataWrapper loc = new LocationDataWrapper(lat, lon);
 		LocationDataPopulator.populate(loc);
-		LocationDataPopulator.populate(idealLoc);
 		loc.compareToIdeal(idealLoc);
 
-		ScoreResponse sr = new ScoreResponse();
+		ScoreResponse sr = new ScoreResponse(lat, lon);
 		sr.setScore(loc.getScore());
 		return sr;
 	}
