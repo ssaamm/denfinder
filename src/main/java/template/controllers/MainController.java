@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import template.data.geocode.GeocodeService;
 import template.m1.LatLon;
@@ -25,6 +26,25 @@ public class MainController {
 	public String index(Model model) {
 		model.addAttribute("ideal", new LocationDataWrapper());
 		return "index";
+	}
+
+	@RequestMapping(value = "/score")
+	public @ResponseBody ScoreResponse getScore(@RequestParam Map<String, String> allRequestParams,
+			Model model) {
+		LocationDataWrapper idealLoc = new LocationDataWrapper();
+		idealLoc.setMedianAge(Double.valueOf(allRequestParams.get("medianAge")));
+		idealLoc.setMedianIncome(Integer.valueOf(allRequestParams.get("medianIncome")));
+		idealLoc.setSchoolWeightInput(Double.valueOf(allRequestParams.get("schoolWeightInput")));
+
+		Double lat = Double.valueOf(allRequestParams.get("lat")), lon = Double
+				.valueOf(allRequestParams.get("lon"));
+		LocationDataWrapper loc = new LocationDataWrapper(lat, lon);
+		LocationDataPopulator.populate(loc);
+		loc.compareToIdeal(idealLoc);
+
+		ScoreResponse sr = new ScoreResponse(lat, lon);
+		sr.setScore(loc.getScore());
+		return sr;
 	}
 
 	@RequestMapping(value = "/map", method = RequestMethod.POST)
