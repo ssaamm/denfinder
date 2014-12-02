@@ -35,6 +35,7 @@ public class MainController {
 		idealLoc.setMedianAge(Double.valueOf(allRequestParams.get("medianAge")));
 		idealLoc.setMedianIncome(Integer.valueOf(allRequestParams.get("medianIncome")));
 		idealLoc.setSchoolWeightInput(Double.valueOf(allRequestParams.get("schoolWeightInput")));
+		idealLoc.setTransitWeightInput(Double.valueOf(allRequestParams.get("transitWeightInput")));
 
 		Double lat = Double.valueOf(allRequestParams.get("lat")), lon = Double
 				.valueOf(allRequestParams.get("lon"));
@@ -60,6 +61,7 @@ public class MainController {
 		idealLoc.setMedianAge(Double.valueOf(allRequestParams.get("medianAge")));
 		idealLoc.setMedianIncome(Integer.valueOf(allRequestParams.get("medianIncome")));
 		idealLoc.setSchoolWeightInput(Double.valueOf(allRequestParams.get("schoolWeightInput")));
+		idealLoc.setTransitWeightInput(Double.valueOf(allRequestParams.get("transitWeightInput")));
 
 		LocationDataPopulator.populate(idealLoc);
 

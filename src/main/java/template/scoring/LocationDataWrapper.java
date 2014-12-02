@@ -18,6 +18,7 @@ public class LocationDataWrapper {
 	
 	//for hacks
 	private Double schoolWeightInput = null;
+	private Double transitWeightInput = null;
 	
 	public Double getSchoolWeightInput() {
 		return schoolWeightInput;
@@ -26,6 +27,15 @@ public class LocationDataWrapper {
 	public void setSchoolWeightInput(Double schoolWeightInput) {
 		this.schoolWeightInput = schoolWeightInput;
 		this.setSchoolWeight(schoolWeightInput);
+	}
+	
+	public Double getTransitWeightInput() {
+		return transitWeightInput;
+	}
+
+	public void setTransitWeightInput(Double transitWeightInput) {
+		this.transitWeightInput = transitWeightInput;
+		this.setSchoolWeight(transitWeightInput);
 	}
 
 	public Double getTransitScore() {
