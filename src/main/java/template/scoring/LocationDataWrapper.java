@@ -35,7 +35,14 @@ public class LocationDataWrapper {
 
 	public void setTransitWeightInput(Double transitWeightInput) {
 		this.transitWeightInput = transitWeightInput;
-		this.setSchoolWeight(transitWeightInput);
+		this.setTransitWeight(transitWeightInput);
+	}
+
+	private void setTransitWeight(Double transitWeight) {
+		this.score.setTransitWeight(transitWeight);		
+	}
+	public Double getTransitWeight(){
+		return this.score.getTransitWeight();
 	}
 
 	public Double getTransitScore() {

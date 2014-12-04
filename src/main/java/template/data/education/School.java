@@ -35,6 +35,9 @@ public class School {
 	}
 
 	public int getQuality() {
+		if(testRatingText == null || testRatingText.length() <=0){
+			return 0;
+		}
 		String rating = "0";
 		String[] split = testRatingText.split("\\s+");
 		if (split.length >= 3) {

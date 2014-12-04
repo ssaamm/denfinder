@@ -12,7 +12,7 @@ public class Score {
 	private Double schoolWeight = 1.0;
 	private Double ageWeight =1.0;
 	private Double householdWeight =1.0;
-	private Double incomeWeight =1.0;
+	private Double incomeWeight =4.0;
 	
 	public Double getSchoolWeight() {
 		return schoolWeight;
@@ -20,6 +20,14 @@ public class Score {
 
 	public void setSchoolWeight(Double schoolWeight) {
 		this.schoolWeight = schoolWeight;
+	}
+
+	public Double getTransitWeight() {
+		return transitWeight;
+	}
+
+	public void setTransitWeight(Double transitWeight) {
+		this.transitWeight = transitWeight;
 	}
 
 	Score(){
@@ -34,27 +42,27 @@ public class Score {
 		
 		try {
 			//transit score
-			transitScore = 0.01 * transitScore * this.transitWeight;
+			transitScore = 0.01 * current.getTransitScore() * ideal.getTransitWeight();
 			transitScore = transitScore > 0 ? transitScore: 0.0;
 		
 			//school score
 			if (current.getSchools().size() >= 2) {
-				schoolScore = (current.getSchools().get(0).getQuality() * .7 + current.getSchools().get(1).getQuality() * .3)
-						* this.schoolWeight;
+				schoolScore = (current.getSchools().get(0).getQuality() * .07 + current.getSchools().get(1).getQuality() * .03)
+						* ideal.getSchoolWeight();
 			}
 			
 			//income score
 			if (ideal.getMedianIncome() != null && current.getMedianIncome() != null) {
 				incomeScore = (1 - (double)Math.abs(ideal.getMedianIncome() - current.getMedianIncome()) / (double)ideal.getMedianIncome())
 						* this.incomeWeight;
-				incomeScore = incomeScore > 0 ? incomeScore: 0.0;
+				//incomeScore = incomeScore > 0 ? incomeScore: 0.0;
 			}
 			
 			//age score
 			if (ideal.getMedianAge() != null && current.getMedianAge() != null) {
 				ageScore = (1 - Math.abs(ideal.getMedianAge() - current.getMedianAge()) / ideal.getMedianAge())
 						* this.ageWeight;
-				ageScore = ageScore > 0 ? ageScore : 0.0;
+				//ageScore = ageScore > 0 ? ageScore : 0.0;
 			}
 		} catch (ArithmeticException e) {
 			// TODO: fix this bad exception handling
@@ -79,6 +87,7 @@ public class Score {
 		return locationScore;
 	}
 	public Double getTotalScore(){
+		
 		Double sum = 0.0;
 		sum += transitScore;
 		sum += schoolScore;
