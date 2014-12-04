@@ -35,7 +35,7 @@ public class School {
 	}
 
 	public int getQuality() {
-		if(testRatingText == null || testRatingText.length() <=0){
+		if(testRatingText == null || testRatingText.length() <= 0){
 			return 0;
 		}
 		String rating = "0";

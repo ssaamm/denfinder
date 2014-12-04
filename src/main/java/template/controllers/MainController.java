@@ -63,8 +63,6 @@ public class MainController {
 		idealLoc.setSchoolWeightInput(Double.valueOf(allRequestParams.get("schoolWeightInput")));
 		idealLoc.setTransitWeightInput(Double.valueOf(allRequestParams.get("transitWeightInput")));
 
-		//LocationDataPopulator.populate(idealLoc);
-
 		LatLon latLon = idealLoc.getLocation();
 		Double lowestScore = null;
 		for (int i = -1 * WIDTH_OF_TARGET_BOX; i <= WIDTH_OF_TARGET_BOX; ++i) {

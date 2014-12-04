@@ -43,8 +43,7 @@ public class Score {
 		try {
 			//transit score
 			transitScore = 0.01 * current.getTransitScore() * ideal.getTransitWeight();
-			transitScore = transitScore > 0 ? transitScore: 0.0;
-		
+			
 			//school score
 			if (current.getSchools().size() >= 2) {
 				schoolScore = (current.getSchools().get(0).getQuality() * .07 + current.getSchools().get(1).getQuality() * .03)
@@ -55,14 +54,12 @@ public class Score {
 			if (ideal.getMedianIncome() != null && current.getMedianIncome() != null) {
 				incomeScore = (1 - (double)Math.abs(ideal.getMedianIncome() - current.getMedianIncome()) / (double)ideal.getMedianIncome())
 						* this.incomeWeight;
-				//incomeScore = incomeScore > 0 ? incomeScore: 0.0;
 			}
 			
 			//age score
 			if (ideal.getMedianAge() != null && current.getMedianAge() != null) {
 				ageScore = (1 - Math.abs(ideal.getMedianAge() - current.getMedianAge()) / ideal.getMedianAge())
 						* this.ageWeight;
-				//ageScore = ageScore > 0 ? ageScore : 0.0;
 			}
 		} catch (ArithmeticException e) {
 			// TODO: fix this bad exception handling
@@ -87,7 +84,6 @@ public class Score {
 		return locationScore;
 	}
 	public Double getTotalScore(){
-		
 		Double sum = 0.0;
 		sum += transitScore;
 		sum += schoolScore;
