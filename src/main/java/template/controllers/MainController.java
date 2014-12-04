@@ -20,7 +20,7 @@ import template.scoring.LocationDataWrapper;
 
 @Controller
 public class MainController {
-	private final int WIDTH_OF_TARGET_BOX = 3;
+	private final int WIDTH_OF_TARGET_BOX = 0;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
@@ -57,6 +57,7 @@ public class MainController {
 			idealLoc = new LocationDataWrapper();
 		}
 		String address = allRequestParams.get("address");
+		idealLoc.setAddress(address);
 		idealLoc.setLocation(GeocodeService.getLatLon(address));
 		idealLoc.setMedianAge(Double.valueOf(allRequestParams.get("medianAge")));
 		idealLoc.setMedianIncome(Integer.valueOf(allRequestParams.get("medianIncome")));
@@ -101,10 +102,20 @@ public class MainController {
 							.getLocation().getLatitude(), ldw.getLocation().getLongitude(),
 					ldw.getScore() + modifier);
 		}
+		
+		String idealLocData = String.format(
+				"{latitude: %.4f, longitude: %.4f, medianAge: %.4f, schoolWeight: %.4f, "
+				+ "medianIncome: %d, transitWeight: %.4f}",
+				idealLoc.getLocation().getLatitude(), idealLoc.getLocation().getLongitude(),
+				idealLoc.getMedianAge(),idealLoc.getSchoolWeight(), idealLoc.getMedianIncome(),
+				idealLoc.getTransitWeight()
+				);
+		model.addAttribute("idealData",idealLocData);
 		model.addAttribute("ideal", new LocationDataWrapper());
 		model.addAttribute("locData", locData);
 		model.addAttribute("latitude", latLon.getLatitude());
 		model.addAttribute("longitude", latLon.getLongitude());
+		model.addAttribute("addressStr", "{"+address+"}");
 		return "map";
 	}
 }
