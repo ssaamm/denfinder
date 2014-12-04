@@ -115,7 +115,7 @@ public class MainController {
 		model.addAttribute("locData", locData);
 		model.addAttribute("latitude", latLon.getLatitude());
 		model.addAttribute("longitude", latLon.getLongitude());
-		model.addAttribute("addressStr", "{"+address+"}");
+		model.addAttribute("addressStr",address);
 		return "map";
 	}
 }

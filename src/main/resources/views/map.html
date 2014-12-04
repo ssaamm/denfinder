@@ -30,8 +30,6 @@ var map, pointArray, heatmap;
 var locData = [ [[${locData}]] ];
 var idealData   = [[${idealData}]];
 
-var ad = [[${address}]];
-
 function initialize() {
   var mapOptions = {
     zoom: 11,
@@ -80,7 +78,17 @@ function initialize() {
 
   
   console.log(idealData);
-  $("#address").val(ad);
+  var ad = $("#addressStr")[0].innerHTML;
+  $("#addressInput").val(ad);
+  $("#medianIncomeInput").val(idealData.medianIncome);
+  $("#medianAgeInput").val(idealData.medianAge);
+  $("#transitWeightInput").val(idealData.transitWeight);
+  $("#schoolWeightInput").val(idealData.schoolWeight);
+
+
+
+
+
   const WIDTH_OF_BOX = 3;
   // loop
   for(var i = -1*WIDTH_OF_BOX; i<=WIDTH_OF_BOX; i++){
@@ -121,6 +129,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
   </head>
 
   <body>
+    <p id="addressStr" style="display:none;" th:text="${addressStr}"></p>
     <div id="panel">
       <h1 class="text-center">
             Neighborhood Qualities
@@ -130,13 +139,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
               <label for="">
                 Preferred Location
               </label>
-              <input id="address" type="text" class="form-control" placeholder="City, state or zip code" th:field="*{address}" name="" />
+              <input id="addressInput" type="text" class="form-control" placeholder="City, state or zip code" th:field="*{address}" name="" />
             </div>
             <div class="form-group">
               <label for="">
                 Income Range
               </label>
-              <select th:field="*{medianIncome}" name="" id="" class="form-control">
+              <select th:field="*{medianIncome}" name="" id="medianIncomeInput" class="form-control">
                 <option value="15000">Below $25K</option>
                 <option value="37500">Above $25K</option>
                 <option value="62500">Above $50K</option>
@@ -146,7 +155,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
             </div>
             <div class="form-group">
               <label for="">Age</label>
-              <select th:field="*{medianAge}" name="" id="" class="form-control">
+              <select th:field="*{medianAge}" name="" id="medianAgeInput" class="form-control">
                 <option value="15">Teens</option>
                 <option value="25">20's</option>
                 <option value="35">30's</option>
@@ -157,18 +166,18 @@ google.maps.event.addDomListener(window, 'load', initialize);
             </div>
             <div class="form-group">
               <label for="">Importance Transit System Quality</label>
-              <select th:field="*{transitWeightInput}" name="" id="" class="form-control">
-                <option value="2.0">Very Important</option>
-                <option value="1.0">Somewhat Important</option>
-                <option value="0.0">Not Very Important</option>
+              <select th:field="*{transitWeightInput}" name="" id="transitWeightInput" class="form-control">
+                <option value="2">Very Important</option>
+                <option value="1">Somewhat Important</option>
+                <option value="0">Not Very Important</option>
               </select>
             </div>
             <div class="form-group">
               <label for="">Importance School System Quality</label>
-              <select th:field="*{schoolWeightInput}" name="" id="" class="form-control">
-                <option value="2.0">Very Important</option>
-                <option value="1.0">Somewhat Important</option>
-                <option value="0.0">Not Very Important</option>
+              <select th:field="*{schoolWeightInput}" name="" id="schoolWeightInput" class="form-control">
+                <option value="2">Very Important</option>
+                <option value="1">Somewhat Important</option>
+                <option value="0">Not Very Important</option>
               </select>
             </div>
             <button type="submit" class="btn btn-primary btn-lg btn-block">UPDATE</button>
