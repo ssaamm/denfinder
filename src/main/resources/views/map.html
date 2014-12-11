@@ -78,8 +78,8 @@ function initialize() {
   for (var r = 0.0; r < 0.15; r += 0.01) {
     var step = 2 * Math.PI / (r * 500);
     for (var theta = 0; theta < 2 * Math.PI; theta += step) {
-      var lt = mapOptions.center.k + r * Math.cos(theta);
-      var ln = mapOptions.center.B + r * Math.sin(theta);
+      var lt = idealData.latitude + r * Math.cos(theta);
+      var ln = idealData.longitude + r * Math.sin(theta);
       
       $.getJSON("/score?medianAge="+idealData.medianAge+"&medianIncome="+idealData.medianIncome+"&schoolWeightInput="+idealData.schoolWeight+"&transitWeightInput="+idealData.transitWeight+"&lat="+lt+"&lon="+ln, function(data){
           var w = data.score;
